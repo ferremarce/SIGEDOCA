@@ -35,10 +35,14 @@
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Ficha" title="Click para ordenar..."/>
+                        <h:outputText value="Datos Familiares" />
                     </f:facet>
-                    <h:outputText value="#{item.padre}"/>
-                    <h:outputText value="#{item.madre}"/>
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-10">
+                        <h:outputLabel value="Padre:"/>
+                        <h:outputText value="#{item.padre}"/>
+                        <h:outputLabel value="Madre:"/>
+                        <h:outputText value="#{item.madre}"/>
+                    </p:panelGrid>
                 </p:column>
                 <p:column>
                     <f:facet name="header">

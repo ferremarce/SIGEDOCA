@@ -13,9 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,24 +25,27 @@ import javax.validation.constraints.Size;
  * @author jmferreira
  */
 @Entity
-@Table(name = "capilla")
+@Table(name = "diocesis")
 @NamedQueries({
-    @NamedQuery(name = "Capilla.findAll", query = "SELECT c FROM Capilla c")})
-public class Capilla implements Serializable {
+    @NamedQuery(name = "Diocesis.findAll", query = "SELECT d FROM Diocesis d")})
+public class Diocesis implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_capilla")
-    private Integer idCapilla;
-    @Size(max = 255)
+    @Column(name = "id_diocesis")
+    private Integer idDiocesis;
+    @Lob
+    @Size(max = 65535)
     @Column(name = "nombre")
     private String nombre;
-    @Size(max = 255)
+    @Lob
+    @Size(max = 65535)
     @Column(name = "direccion")
     private String direccion;
-    @Size(max = 255)
+    @Lob
+    @Size(max = 65535)
     @Column(name = "telefono")
     private String telefono;
     @Size(max = 255)
@@ -54,28 +55,22 @@ public class Capilla implements Serializable {
     @Size(max = 65535)
     @Column(name = "datos_adicionales")
     private String datosAdicionales;
-    @JoinColumn(name = "id_parroquia", referencedColumnName = "id_parroquia")
-    @ManyToOne
-    private Parroquia idParroquia;
-    @JoinColumn(name = "id_zona", referencedColumnName = "id_sub_tipo")
-    @ManyToOne
-    private SubTipo idZona;
-    @OneToMany(mappedBy = "idCapilla")
-    private List<FormacionCristiana> formacionCristianaList;
+    @OneToMany(mappedBy = "idDiocesis")
+    private List<Parroquia> parroquiaList;
 
-    public Capilla() {
+    public Diocesis() {
     }
 
-    public Capilla(Integer idCapilla) {
-        this.idCapilla = idCapilla;
+    public Diocesis(Integer idDiocesis) {
+        this.idDiocesis = idDiocesis;
     }
 
-    public Integer getIdCapilla() {
-        return idCapilla;
+    public Integer getIdDiocesis() {
+        return idDiocesis;
     }
 
-    public void setIdCapilla(Integer idCapilla) {
-        this.idCapilla = idCapilla;
+    public void setIdDiocesis(Integer idDiocesis) {
+        this.idDiocesis = idDiocesis;
     }
 
     public String getNombre() {
@@ -118,45 +113,29 @@ public class Capilla implements Serializable {
         this.datosAdicionales = datosAdicionales;
     }
 
-    public Parroquia getIdParroquia() {
-        return idParroquia;
+    public List<Parroquia> getParroquiaList() {
+        return parroquiaList;
     }
 
-    public void setIdParroquia(Parroquia idParroquia) {
-        this.idParroquia = idParroquia;
-    }
-
-    public SubTipo getIdZona() {
-        return idZona;
-    }
-
-    public void setIdZona(SubTipo idZona) {
-        this.idZona = idZona;
-    }
-
-    public List<FormacionCristiana> getFormacionCristianaList() {
-        return formacionCristianaList;
-    }
-
-    public void setFormacionCristianaList(List<FormacionCristiana> formacionCristianaList) {
-        this.formacionCristianaList = formacionCristianaList;
+    public void setParroquiaList(List<Parroquia> parroquiaList) {
+        this.parroquiaList = parroquiaList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCapilla != null ? idCapilla.hashCode() : 0);
+        hash += (idDiocesis != null ? idDiocesis.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Capilla)) {
+        if (!(object instanceof Diocesis)) {
             return false;
         }
-        Capilla other = (Capilla) object;
-        if ((this.idCapilla == null && other.idCapilla != null) || (this.idCapilla != null && !this.idCapilla.equals(other.idCapilla))) {
+        Diocesis other = (Diocesis) object;
+        if ((this.idDiocesis == null && other.idDiocesis != null) || (this.idDiocesis != null && !this.idDiocesis.equals(other.idDiocesis))) {
             return false;
         }
         return true;
@@ -164,7 +143,7 @@ public class Capilla implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Capilla[ idCapilla=" + idCapilla + " ]";
+        return "catequesis.modelo.Diocesis[ idDiocesis=" + idDiocesis + " ]";
     }
     
 }

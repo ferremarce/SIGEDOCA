@@ -16,7 +16,6 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -32,6 +31,7 @@ public class Ficha implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "id_ficha")
     private Integer idFicha;
     @Column(name = "anho_incorporacion")
@@ -246,7 +246,7 @@ public class Ficha implements Serializable {
 
     @Override
     public String toString() {
-        return this.nombres+" "+this.apellidos;
+        return "catequesis.modelo.Ficha[ idFicha=" + idFicha + " ]";
     }
     
 }

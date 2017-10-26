@@ -7,39 +7,34 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
     <ui:define name="title">
-        <h1>Crear Capilla</h1>
+        <h1>Crear Diocesis</h1>
     </ui:define>
     <ui:define name="content">
         <h:form>
-            <p:panel header="Datos de la Capilla">
+            <p:panel header="Datos de la Diocesis">
                 <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                     <p:outputLabel value="Nombre:" for="nombre" />
-                    <p:inputText id="nombre" value="#{CapillaController.capilla.nombre}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}"/>
+                    <p:inputText id="nombre" value="#{DiocesisController.diocesis.nombre}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}"/>
                     <p:message for="nombre"/>
-                    <p:outputLabel value="Zona:" for="idZona" />
-                    <p:selectOneButton id="idZona" value="#{CapillaController.capilla.idZona}" required="true" requiredMessage="#{bundle.Requerido}">  
-                        <f:selectItems value="#{SubTipoController.subTipoZonaSet}"/>
-                    </p:selectOneButton>
-                    <p:message for="idZona"/>
                     <p:outputLabel value="Dirección:" for="direccion" />
-                    <p:inputText id="direccion" value="#{CapillaController.capilla.direccion}" title="Direccion" />
+                    <p:inputText id="direccion" value="#{DiocesisController.diocesis.direccion}" title="Direccion" />
                     <p:message for="direccion"/>
                     <p:outputLabel value="Telófono:" for="telefono" />
-                    <p:inputText id="telefono" value="#{CapillaController.capilla.telefono}" title="Telefono" />
+                    <p:inputText id="telefono" value="#{DiocesisController.diocesis.telefono}" title="Telefono" />
                     <p:message for="telefono"/>
                     <h:outputLabel for="email" value="Correo Electrónico:"/>
-                    <p:inputText id="email" value="#{CapillaController.capilla.correo}" validatorMessage="El correo no tiene un formato válido" title="Email" required="false">
+                    <p:inputText id="email" value="#{DiocesisController.diocesis.correo}" validatorMessage="El correo no tiene un formato válido" title="Email">
                         <f:validateRegex disabled="true" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
                     </p:inputText>
                     <p:message for="email"/>
                     <p:outputLabel value="Datos Adicionales:" for="datosAdicionales" />
-                    <p:inputTextarea rows="4" cols="30" id="datosAdicionales" value="#{CapillaController.capilla.datosAdicionales}" title="DatosAdicionales" />
+                    <p:inputTextarea rows="4" cols="30" id="datosAdicionales" value="#{DiocesisController.diocesis.datosAdicionales}" title="DatosAdicionales" />
                     <p:message for="datosAdicionales"/>
                 </p:panelGrid>
                 <f:facet name="footer">
                     <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{CapillaController.doGuardar()}"/>
-                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{CapillaController.doListaForm()}"/>
+                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{DiocesisController.doGuardar()}"/>
+                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{DiocesisController.doListaForm()}"/>
                     </p:panelGrid>
                 </f:facet>
             </p:panel>

@@ -4,19 +4,19 @@
  */
 package catequesis.converter;
 
-import catequesis.controller.ZonaController;
-import catequesis.modelo.Zona;
+import catequesis.controller.SubTipoController;
+import catequesis.modelo.SubTipo;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 /**
- * Converter del Zona.class
+ * Converter del SubTipo.class
  * @author jmferreira
  */
-@FacesConverter(forClass = Zona.class)
-public class ZonaConverter implements Converter {
+@FacesConverter(forClass = SubTipo.class)
+public class SubTipoConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
@@ -24,9 +24,9 @@ public class ZonaConverter implements Converter {
         if (value == null || value.length() == 0 || value.compareTo("------ Opciones ------") == 0) {
             return null;
         }
-        ZonaController controller = (ZonaController) facesContext.getApplication().getELResolver().
-                getValue(facesContext.getELContext(), null, "ZonaController");
-        return controller.getZonaFacade().find(getKey(value));
+        SubTipoController controller = (SubTipoController) facesContext.getApplication().getELResolver().
+                getValue(facesContext.getELContext(), null, "SubTipoController");
+        return controller.getSubTipoFacade().find(getKey(value));
     }
 
     java.lang.Integer getKey(String value) {
@@ -49,11 +49,11 @@ public class ZonaConverter implements Converter {
         if (object instanceof String && object.toString().compareTo("------ Opciones ------") == 0) {
             return null;
         }
-        if (object instanceof Zona) {
-            Zona o = (Zona) object;
-            return getStringKey(o.getIdZona());
+        if (object instanceof SubTipo) {
+            SubTipo o = (SubTipo) object;
+            return getStringKey(o.getIdSubTipo());
         } else {
-            throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + ZonaController.class.getName());
+            throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + SubTipoController.class.getName());
         }
     }
 }

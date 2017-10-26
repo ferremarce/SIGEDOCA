@@ -11,16 +11,21 @@
     </ui:define>
     <ui:define name="content">
         <h:form>
-            <p:panel header="Datos de la Zona">
+            <p:panel header="Datos del SubTipo">
                 <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                    <p:outputLabel value="Nombre:" for="descripcionZona" />
-                    <p:inputText id="descripcionZona" value="#{ZonaController.zona.descripcionZona}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}" />
-                    <p:message for="descripcionZona"/>
+                    <p:outputLabel value="Tipo:" for="idTipo" />
+                    <p:selectOneMenu id="idTipo" value="#{SubTipoController.subTipo.idTipo}" >
+                        <f:selectItems value="#{TipoController.tipoSet}"/>
+                    </p:selectOneMenu>
+                    <p:message for="idTipo"/>
+                    <p:outputLabel value="Descripción:" for="descripcionSubTipo" />
+                    <p:inputTextarea rows="4" cols="30" id="descripcionSubTipo" value="#{SubTipoController.subTipo.descripcionSubTipo}" title="DescripcionSubTipo" />
+                    <p:message for="descripcionSubTipo"/>
                 </p:panelGrid>
                 <f:facet name="footer">
                     <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{ZonaController.doGuardar()}"/>
-                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{ZonaController.doListaZonaForm()}"/>
+                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{SubTipoController.doGuardar()}"/>
+                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{SubTipoController.doListaForm()}"/>
                     </p:panelGrid>
                 </f:facet>
             </p:panel>

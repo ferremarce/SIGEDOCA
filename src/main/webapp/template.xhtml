@@ -21,9 +21,14 @@
             </p:link>
             <h:form>
                 <p:menubar>
-                    <p:menuitem ajax="false" value="Capillas" action="#{CapillaController.doListaForm()}"/>
-                    <p:menuitem ajax="false" value="Zonas" action="#{ZonaController.doListaForm()}"/>
-                    <p:menuitem ajax="false" value="Fichas" action="#{FichaController.doListaForm()}"/>
+                    <p:submenu label="Administración" icon="ui-icon-gear">
+                        <p:menuitem ajax="false" value="Capillas" action="#{CapillaController.doListaForm()}"/>
+                        <p:menuitem ajax="false" value="Fichas de Inscripción" action="#{FichaController.doListaForm()}"/>
+                    </p:submenu>
+                    <p:submenu label="Configuración" icon="ui-icon-document">
+                        <p:menuitem ajax="false" value="Diócesis" action="#{DiocesisController.doListaForm()}"/>
+                        <p:menuitem ajax="false" value="SubTipos" action="#{SubTipoController.doListaForm()}"/>
+                    </p:submenu>
                 </p:menubar>
             </h:form>
             <ui:insert name="title">

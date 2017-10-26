@@ -5,7 +5,7 @@
  */
 package catequesis.fachada;
 
-import catequesis.modelo.Zona;
+import catequesis.modelo.Tipo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author jmferreira
  */
 @Stateless
-public class ZonaFacade extends AbstractFacade<Zona> {
+public class TipoFacade extends AbstractFacade<Tipo> {
 
     @PersistenceContext(unitName = "com.jmfa_catequesis_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class ZonaFacade extends AbstractFacade<Zona> {
         return em;
     }
 
-    public ZonaFacade() {
-        super(Zona.class);
+    public TipoFacade() {
+        super(Tipo.class);
     }
     
 }

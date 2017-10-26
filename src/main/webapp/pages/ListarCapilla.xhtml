@@ -26,17 +26,17 @@
                 <f:facet name="header">
                     Tabla de Datos
                 </f:facet>                
-                <p:column sortBy="#{item.descripcionCapilla}" filterBy="#{item.descripcionCapilla}"  filterMatchMode="contains">
+                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}"  filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="Capilla" title="Click para ordenar..."/>
                     </f:facet>
-                    <h:outputText value="#{index+1}. #{item.descripcionCapilla}"/>
+                    <h:outputText value="#{index+1}. #{item.nombre}"/>
                 </p:column>
-                <p:column sortBy="#{item.idZona.descripcionZona}" filterBy="#{item.idZona.descripcionZona}" filterMatchMode="contains">
+                <p:column sortBy="#{item.idZona.descripcionSubTipo}" filterBy="#{item.idZona.descripcionSubTipo}" filterMatchMode="contains">
                     <f:facet name="header">
                         <h:outputText value="Zona" title="Click para ordenar..."/>
                     </f:facet>
-                    <h:outputText value="#{item.idZona.descripcionZona}"/>
+                    <h:outputText value="#{item.idZona.descripcionSubTipo}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
