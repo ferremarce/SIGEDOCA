@@ -76,7 +76,7 @@ public class ZonaController implements Serializable {
         return JSFutil.getSelectItems(zonaFacade.findAll(), habilitado);
     }
 
-    public String doListaZonaForm() {
+    public String doListaForm() {
         this.listaZona = new ArrayList<>();
         return "/pages/ListarZona";
     }
@@ -107,13 +107,13 @@ public class ZonaController implements Serializable {
         } else {
             persist(PersistAction.CREATE);
         }
-        return doListaZonaForm();
+        return doListaForm();
     }
 
     public String doBorrar(Integer id) {
         this.zona = zonaFacade.find(id);
         persist(PersistAction.DELETE);
-        return doListaZonaForm();
+        return doListaForm();
     }
 
     private void persist(PersistAction persistAction) {

@@ -5,8 +5,8 @@
  */
 package catequesis.controller;
 
-import catequesis.fachada.CapillaFacade;
-import catequesis.modelo.Capilla;
+import catequesis.fachada.FichaFacade;
+import catequesis.modelo.Ficha;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -24,89 +24,89 @@ import util.JSFutil.PersistAction;
  *
  * @author jmferreira
  */
-@Named(value = "CapillaController")
+@Named(value = "FichaController")
 @SessionScoped
-public class CapillaController implements Serializable {
-    
-    private static final Logger LOG = Logger.getLogger(CapillaController.class.getName());
+public class FichaController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(FichaController.class.getName());
     ResourceBundle bundle = ResourceBundle.getBundle("propiedades.bundle", JSFutil.getmyLocale());
-    
+
     @Inject
-    CapillaFacade capillaFacade;
-    
-    private Capilla capilla;
-    private List<Capilla> listaCapilla;
+    FichaFacade fichaFacade;
+
+    private Ficha ficha;
+    private List<Ficha> listaFicha;
 
     /**
-     * Creates a new instance of CapillaController
+     * Creates a new instance of FichaController
      */
-    public CapillaController() {
+    public FichaController() {
     }
-    
-    public Capilla getCapilla() {
-        return capilla;
+
+    public Ficha getFicha() {
+        return ficha;
     }
-    
-    public void setCapilla(Capilla capilla) {
-        this.capilla = capilla;
+
+    public void setFicha(Ficha ficha) {
+        this.ficha = ficha;
     }
-    
-    public List<Capilla> getListaCapilla() {
-        return listaCapilla;
+
+    public List<Ficha> getListaFicha() {
+        return listaFicha;
     }
-    
-    public void setListaCapilla(List<Capilla> listaCapilla) {
-        this.listaCapilla = listaCapilla;
+
+    public void setListaFicha(List<Ficha> listaFicha) {
+        this.listaFicha = listaFicha;
     }
-    
+
     public String doListaForm() {
-        this.listaCapilla = new ArrayList<>();
-        return "/pages/ListarCapilla";
+        this.listaFicha = new ArrayList<>();
+        return "/pages/ListarFicha";
     }
-    
+
     public String doCrearForm() {
-        this.capilla = new Capilla();
-        return "/pages/CrearCapilla";
+        this.ficha = new Ficha();
+        return "/pages/CrearFicha";
     }
-    
+
     public String doEditarForm(Integer id) {
-        this.capilla = capillaFacade.find(id);
-        return "/pages/CrearCapilla";
+        this.ficha = fichaFacade.find(id);
+        return "/pages/CrearFicha";
     }
-    
+
     public String doRefrescar() {
-        this.listaCapilla = capillaFacade.findAll();
-        if (this.listaCapilla.isEmpty()) {
+        this.listaFicha = fichaFacade.findAll();
+        if (this.listaFicha.isEmpty()) {
             JSFutil.addErrorMessage("No hay resultados...");
         } else {
-            JSFutil.addSuccessMessage(this.listaCapilla.size() + " registros recuperados");
+            JSFutil.addSuccessMessage(this.listaFicha.size() + " registros recuperados");
         }
         return "";
     }
-    
+
     public String doGuardar() {
-        if (this.capilla.getIdCapilla() != null) {
+        if (this.ficha.getIdFicha() != null) {
             persist(PersistAction.UPDATE);
         } else {
             persist(PersistAction.CREATE);
         }
         return doListaForm();
     }
-    
+
     public String doBorrar(Integer id) {
-        this.capilla = capillaFacade.find(id);
+        this.ficha = fichaFacade.find(id);
         persist(PersistAction.DELETE);
         return doListaForm();
     }
-    
+
     private void persist(PersistAction persistAction) {
         try {
             if (persistAction.compareTo(PersistAction.CREATE) == 0) {
-                capillaFacade.create(capilla);
+                fichaFacade.create(ficha);
             } else if (persistAction.compareTo(PersistAction.UPDATE) == 0) {
-                capillaFacade.edit(capilla);
+                fichaFacade.edit(ficha);
             } else if (persistAction.compareTo(PersistAction.DELETE) == 0) {
-                capillaFacade.remove(capilla);
+                fichaFacade.remove(ficha);
             }
             JSFutil.addSuccessMessage(this.bundle.getString("UpdateSuccess"));
         } catch (EJBException ex) {
@@ -123,5 +123,4 @@ public class CapillaController implements Serializable {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
-    
 }

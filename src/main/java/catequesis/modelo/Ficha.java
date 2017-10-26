@@ -246,7 +246,7 @@ public class Ficha implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Ficha[ idFicha=" + idFicha + " ]";
+        return this.nombres+" "+this.apellidos;
     }
     
 }
