@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        <h1>Crear Capilla</h1>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Datos de la Capilla">
+                <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Nombre:" for="descripcionCapilla" />
+                    <p:inputText id="descripcionCapilla" value="#{CapillaController.capilla.descripcionCapilla}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}" />
+                    <p:message for="descripcionCapilla"/>
+                    <p:outputLabel value="Zona:" for="idZona" />
+                    <p:selectOneButton id="idZona" value="#{CapillaController.capilla.idZona}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{ZonaController.zonaSet}"/>
+                    </p:selectOneButton>
+                    <p:message for="idZona"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{CapillaController.doGuardar()}"/>
+                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{CapillaController.doListaCapillaForm()}"/>
+                    </p:panelGrid>
+                </f:facet>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

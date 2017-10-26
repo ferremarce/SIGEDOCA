@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="style.css"  />
+        <title>#{bundle.TituloSistema}</title>
+    </h:head>
+
+    <h:body>
+        <div class="ui-fluid">
+            <p:link href="/">
+                <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                    <p:graphicImage width="100" value="/img/logo.jpg"/>
+                    <h:outputText style="font-size: 1.8em; color: black" styleClass="tresD" value="Sistema de Gestión Documental de Catequesis"/>
+                </p:panelGrid>
+            </p:link>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem ajax="false" value="Capillas" action="#{CapillaController.doListaCapillaForm()}"/>
+                    <p:menuitem ajax="false" value="Zonas" action="#{ZonaController.doListaZonaForm()}"/>
+                </p:menubar>
+            </h:form>
+            <ui:insert name="title">
+            </ui:insert>
+            <ui:insert name="content">
+            </ui:insert>
+            <ui:insert name="ajax">
+            </ui:insert>
+            <ui:insert name="dialogConfirm">
+                <ui:include src="/dialogConfirm.xhtml"/>
+            </ui:insert>
+            <footer>
+                <p:panel>
+                    <span >
+                        &copy;#{MainController.doGetAnhoActual()} #{bundle.TituloSistema}
+                        <br/>
+                        #{bundle.SubTituloSistema}
+                    </span>
+                    <span style="float: right;">
+                        Desarrollado por @ferremarce
+                    </span>
+                </p:panel>
+            </footer>
+        </div>
+    </h:body>
+
+</html>
