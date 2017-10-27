@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import util.JSFutil;
 import util.JSFutil.PersistAction;
@@ -27,13 +28,13 @@ import util.JSFutil.PersistAction;
 @Named(value = "ParroquiaController")
 @SessionScoped
 public class ParroquiaController implements Serializable {
-    
+
     private static final Logger LOG = Logger.getLogger(ParroquiaController.class.getName());
     ResourceBundle bundle = ResourceBundle.getBundle("propiedades.bundle", JSFutil.getmyLocale());
-    
+
     @Inject
     ParroquiaFacade parroquiaFacade;
-    
+
     private Parroquia parroquia;
     private List<Parroquia> listaParroquia;
 
@@ -42,38 +43,38 @@ public class ParroquiaController implements Serializable {
      */
     public ParroquiaController() {
     }
-    
+
     public Parroquia getParroquia() {
         return parroquia;
     }
-    
+
     public void setParroquia(Parroquia parroquia) {
         this.parroquia = parroquia;
     }
-    
+
     public List<Parroquia> getListaParroquia() {
         return listaParroquia;
     }
-    
+
     public void setListaParroquia(List<Parroquia> listaParroquia) {
         this.listaParroquia = listaParroquia;
     }
-    
+
     public String doListaForm() {
         this.listaParroquia = new ArrayList<>();
         return "/pages/ListarParroquia";
     }
-    
+
     public String doCrearForm() {
         this.parroquia = new Parroquia();
         return "/pages/CrearParroquia";
     }
-    
+
     public String doEditarForm(Integer id) {
         this.parroquia = parroquiaFacade.find(id);
         return "/pages/CrearParroquia";
     }
-    
+
     public String doRefrescar() {
         this.listaParroquia = parroquiaFacade.findAll();
         if (this.listaParroquia.isEmpty()) {
@@ -83,7 +84,7 @@ public class ParroquiaController implements Serializable {
         }
         return "";
     }
-    
+
     public String doGuardar() {
         if (this.parroquia.getIdParroquia() != null) {
             persist(PersistAction.UPDATE);
@@ -92,13 +93,13 @@ public class ParroquiaController implements Serializable {
         }
         return doListaForm();
     }
-    
+
     public String doBorrar(Integer id) {
         this.parroquia = parroquiaFacade.find(id);
         persist(PersistAction.DELETE);
         return doListaForm();
     }
-    
+
     private void persist(PersistAction persistAction) {
         try {
             if (persistAction.compareTo(PersistAction.CREATE) == 0) {
@@ -123,5 +124,8 @@ public class ParroquiaController implements Serializable {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public SelectItem[] parroquiaSet(Integer idDiocesis) {
+        return JSFutil.getSelectItems(parroquiaFacade.findAllbyDiocesis(idDiocesis), Boolean.TRUE);
+    }
 }

@@ -7,6 +7,7 @@ package catequesis.controller;
 
 import catequesis.fachada.CapillaFacade;
 import catequesis.modelo.Capilla;
+import catequesis.modelo.Diocesis;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -36,11 +37,20 @@ public class CapillaController implements Serializable {
     
     private Capilla capilla;
     private List<Capilla> listaCapilla;
+    private Diocesis tmpIdDiocesis;
 
     /**
      * Creates a new instance of CapillaController
      */
     public CapillaController() {
+    }
+
+    public Diocesis getTmpIdDiocesis() {
+        return tmpIdDiocesis;
+    }
+
+    public void setTmpIdDiocesis(Diocesis tmpIdDiocesis) {
+        this.tmpIdDiocesis = tmpIdDiocesis;
     }
     
     public Capilla getCapilla() {

@@ -69,7 +69,11 @@ public class SubTipoController implements Serializable {
     }
 
     public SelectItem[] getSubTipoZonaSet() {
-        return  JSFutil.getSelectItems(subTipoFacade.findAllbyTipo(2,Boolean.TRUE), Boolean.FALSE);
+        return JSFutil.getSelectItems(subTipoFacade.findAllbyTipo(2, Boolean.TRUE), Boolean.FALSE);
+    }
+
+    public SelectItem[] getSubTipoDecanatoSet() {
+        return JSFutil.getSelectItems(subTipoFacade.findAllbyTipo(3, Boolean.TRUE), Boolean.TRUE);
     }
 
     public String doListaForm() {

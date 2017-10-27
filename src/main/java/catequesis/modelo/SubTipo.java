@@ -46,6 +46,8 @@ public class SubTipo implements Serializable {
     private List<Capilla> capillaList;
     @OneToMany(mappedBy = "idEtapa")
     private List<NivelCatequesis> nivelCatequesisList;
+    @OneToMany(mappedBy = "idDecanato")
+    private List<Parroquia> parroquiaList;
     @JoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
     @ManyToOne
     private Tipo idTipo;
@@ -94,6 +96,14 @@ public class SubTipo implements Serializable {
         this.nivelCatequesisList = nivelCatequesisList;
     }
 
+    public List<Parroquia> getParroquiaList() {
+        return parroquiaList;
+    }
+
+    public void setParroquiaList(List<Parroquia> parroquiaList) {
+        this.parroquiaList = parroquiaList;
+    }
+
     public Tipo getIdTipo() {
         return idTipo;
     }
@@ -140,7 +150,7 @@ public class SubTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.SubTipo[ idSubTipo=" + idSubTipo + " ]";
+        return this.getDescripcionSubTipo();
     }
     
 }

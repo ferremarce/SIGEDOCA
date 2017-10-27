@@ -13,6 +13,17 @@
         <h:form>
             <p:panel header="Datos de la Capilla">
                 <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Diócesis:" for="idDiocesis" />
+                    <p:selectOneMenu id="idDiocesis" value="#{CapillaController.tmpIdDiocesis}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{DiocesisController.diocesisSet}"/>
+                        <p:ajax event="change" update="@form"/>
+                    </p:selectOneMenu>
+                    <p:message for="idDiocesis"/>
+                    <p:outputLabel value="Parroquia:" for="idParroquia" />
+                    <p:selectOneMenu id="idParroquia" value="#{CapillaController.capilla.idParroquia}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{ParroquiaController.parroquiaSet(CapillaController.tmpIdDiocesis.idDiocesis)}"/>
+                    </p:selectOneMenu>
+                    <p:message for="idParroquia"/>
                     <p:outputLabel value="Nombre:" for="nombre" />
                     <p:inputText id="nombre" value="#{CapillaController.capilla.nombre}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}"/>
                     <p:message for="nombre"/>
@@ -24,7 +35,7 @@
                     <p:outputLabel value="Dirección:" for="direccion" />
                     <p:inputText id="direccion" value="#{CapillaController.capilla.direccion}" title="Direccion" />
                     <p:message for="direccion"/>
-                    <p:outputLabel value="Telófono:" for="telefono" />
+                    <p:outputLabel value="Teléfono:" for="telefono" />
                     <p:inputText id="telefono" value="#{CapillaController.capilla.telefono}" title="Telefono" />
                     <p:message for="telefono"/>
                     <h:outputLabel for="email" value="Correo Electrónico:"/>
@@ -44,7 +55,8 @@
                 </f:facet>
             </p:panel>
         </h:form>
-
     </ui:define>
-
+    <ui:define name="ajax">
+        <ui:include src="/ajax.xhtml"/>
+    </ui:define>
 </ui:composition>

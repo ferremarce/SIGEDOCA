@@ -62,6 +62,9 @@ public class Parroquia implements Serializable {
     @JoinColumn(name = "id_diocesis", referencedColumnName = "id_diocesis")
     @ManyToOne
     private Diocesis idDiocesis;
+    @JoinColumn(name = "id_decanato", referencedColumnName = "id_sub_tipo")
+    @ManyToOne
+    private SubTipo idDecanato;
 
     public Parroquia() {
     }
@@ -134,6 +137,14 @@ public class Parroquia implements Serializable {
         this.idDiocesis = idDiocesis;
     }
 
+    public SubTipo getIdDecanato() {
+        return idDecanato;
+    }
+
+    public void setIdDecanato(SubTipo idDecanato) {
+        this.idDecanato = idDecanato;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -156,7 +167,7 @@ public class Parroquia implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Parroquia[ idParroquia=" + idParroquia + " ]";
+        return this.getNombre()+" - "+this.getIdDecanato();
     }
     
 }

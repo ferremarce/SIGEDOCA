@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        <h1>Crear Parroquia</h1>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="Datos de la Parroquia">
+                <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Diócesis:" for="idDiocesis" />
+                    <p:selectOneMenu id="idDiocesis" value="#{ParroquiaController.parroquia.idDiocesis}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{DiocesisController.diocesisSet}"/>
+                    </p:selectOneMenu>
+                    <p:message for="idDiocesis"/>
+                    <p:outputLabel value="Nombre:" for="nombre" />
+                    <p:inputText id="nombre" value="#{ParroquiaController.parroquia.nombre}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}"/>
+                    <p:message for="nombre"/>
+                    <p:outputLabel value="Decanato:" for="idDecanato" />
+                    <p:selectOneMenu id="idDecanato" value="#{ParroquiaController.parroquia.idDecanato}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{SubTipoController.subTipoDecanatoSet}"/>
+                    </p:selectOneMenu>
+                    <p:message for="idDecanato"/>
+                    <p:outputLabel value="Dirección:" for="direccion" />
+                    <p:inputText id="direccion" value="#{ParroquiaController.parroquia.direccion}" title="Direccion" />
+                    <p:message for="direccion"/>
+                    <p:outputLabel value="Teléfono:" for="telefono" />
+                    <p:inputText id="telefono" value="#{ParroquiaController.parroquia.telefono}" title="Telefono" />
+                    <p:message for="telefono"/>
+                    <h:outputLabel for="email" value="Correo Electrónico:"/>
+                    <p:inputText id="email" value="#{ParroquiaController.parroquia.correo}" validatorMessage="El correo no tiene un formato válido" title="Email">
+                        <f:validateRegex disabled="true" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:inputText>
+                    <p:message for="email"/>
+                    <p:outputLabel value="Datos Adicionales:" for="datosAdicionales" />
+                    <p:inputTextarea rows="4" cols="30" id="datosAdicionales" value="#{ParroquiaController.parroquia.datosAdicionales}" title="DatosAdicionales" />
+                    <p:message for="datosAdicionales"/>
+                </p:panelGrid>
+                <f:facet name="footer">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                        <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{ParroquiaController.doGuardar()}"/>
+                        <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{ParroquiaController.doListaForm()}"/>
+                    </p:panelGrid>
+                </f:facet>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
