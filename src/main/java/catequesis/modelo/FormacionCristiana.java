@@ -17,6 +17,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -56,6 +57,9 @@ public class FormacionCristiana implements Serializable {
     @JoinColumn(name = "id_capilla", referencedColumnName = "id_capilla")
     @ManyToOne
     private Capilla idCapilla;
+    @JoinColumn(name = "id_ficha", referencedColumnName = "id_ficha")
+    @ManyToOne
+    private Ficha idFicha;
 
     public FormacionCristiana() {
     }
@@ -118,6 +122,14 @@ public class FormacionCristiana implements Serializable {
 
     public void setIdCapilla(Capilla idCapilla) {
         this.idCapilla = idCapilla;
+    }
+
+    public Ficha getIdFicha() {
+        return idFicha;
+    }
+
+    public void setIdFicha(Ficha idFicha) {
+        this.idFicha = idFicha;
     }
 
     @Override

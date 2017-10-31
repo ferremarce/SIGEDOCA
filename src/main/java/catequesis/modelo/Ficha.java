@@ -6,6 +6,7 @@
 package catequesis.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -88,6 +91,8 @@ public class Ficha implements Serializable {
     @Size(max = 65535)
     @Column(name = "observaciones_bautismo")
     private String observacionesBautismo;
+    @OneToMany(mappedBy = "idFicha")
+    private List<FormacionCristiana> formacionCristianaList;
 
     public Ficha() {
     }
@@ -224,6 +229,14 @@ public class Ficha implements Serializable {
         this.observacionesBautismo = observacionesBautismo;
     }
 
+    public List<FormacionCristiana> getFormacionCristianaList() {
+        return formacionCristianaList;
+    }
+
+    public void setFormacionCristianaList(List<FormacionCristiana> formacionCristianaList) {
+        this.formacionCristianaList = formacionCristianaList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -248,5 +261,5 @@ public class Ficha implements Serializable {
     public String toString() {
         return "catequesis.modelo.Ficha[ idFicha=" + idFicha + " ]";
     }
-    
+
 }

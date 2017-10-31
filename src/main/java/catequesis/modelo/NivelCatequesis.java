@@ -44,6 +44,8 @@ public class NivelCatequesis implements Serializable {
     private String descripcionNivel;
     @Column(name = "edad")
     private Integer edad;
+    @Column(name = "orden")
+    private Integer orden;
     @JoinColumn(name = "id_etapa", referencedColumnName = "id_sub_tipo")
     @ManyToOne
     private SubTipo idEtapa;
@@ -97,6 +99,14 @@ public class NivelCatequesis implements Serializable {
         this.formacionCristianaList = formacionCristianaList;
     }
 
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,7 +129,7 @@ public class NivelCatequesis implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.NivelCatequesis[ idNivel=" + idNivel + " ]";
+        return this.getDescripcionNivel();
     }
     
 }

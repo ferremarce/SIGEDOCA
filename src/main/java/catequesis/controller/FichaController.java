@@ -6,7 +6,9 @@
 package catequesis.controller;
 
 import catequesis.fachada.FichaFacade;
+import catequesis.fachada.FormacionCristianaFacade;
 import catequesis.modelo.Ficha;
+import catequesis.modelo.FormacionCristiana;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -33,14 +35,25 @@ public class FichaController implements Serializable {
 
     @Inject
     FichaFacade fichaFacade;
+    @Inject
+    FormacionCristianaFacade formacionCristianaFacade;
 
     private Ficha ficha;
     private List<Ficha> listaFicha;
+    private List<FormacionCristiana> listaFormacionCristiana;
 
     /**
      * Creates a new instance of FichaController
      */
     public FichaController() {
+    }
+
+    public List<FormacionCristiana> getListaFormacionCristiana() {
+        return listaFormacionCristiana;
+    }
+
+    public void setListaFormacionCristiana(List<FormacionCristiana> listaFormacionCristiana) {
+        this.listaFormacionCristiana = listaFormacionCristiana;
     }
 
     public Ficha getFicha() {
@@ -71,6 +84,11 @@ public class FichaController implements Serializable {
 
     public String doEditarForm(Integer id) {
         this.ficha = fichaFacade.find(id);
+        if (this.ficha.getFormacionCristianaList().isEmpty()){
+            formacionCristianaFacade.createFichaFormacion(this.ficha.getIdFicha());
+        }
+        this.ficha = fichaFacade.find(id);
+        this.listaFormacionCristiana=fichaFacade.findAllFormacionCristiana(id);
         return "/pages/CrearFicha";
     }
 
