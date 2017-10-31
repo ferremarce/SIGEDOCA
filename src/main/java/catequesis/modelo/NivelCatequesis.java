@@ -83,6 +83,14 @@ public class NivelCatequesis implements Serializable {
         this.edad = edad;
     }
 
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
     public SubTipo getIdEtapa() {
         return idEtapa;
     }
@@ -97,14 +105,6 @@ public class NivelCatequesis implements Serializable {
 
     public void setFormacionCristianaList(List<FormacionCristiana> formacionCristianaList) {
         this.formacionCristianaList = formacionCristianaList;
-    }
-
-    public Integer getOrden() {
-        return orden;
-    }
-
-    public void setOrden(Integer orden) {
-        this.orden = orden;
     }
 
     @Override

@@ -102,13 +102,13 @@ public class FichaController implements Serializable {
         return "";
     }
 
-    public String doGuardar() {
+    public void doGuardar() {
         if (this.ficha.getIdFicha() != null) {
             persist(PersistAction.UPDATE);
         } else {
             persist(PersistAction.CREATE);
         }
-        return doListaForm();
+        //return doListaForm();
     }
 
     public String doBorrar(Integer id) {

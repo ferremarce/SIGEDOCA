@@ -10,8 +10,9 @@
         <h1>Ficha de Inscripción</h1>
     </ui:define>
     <ui:define name="content">
-        <h:form>
-            <p:accordionPanel multiple="true">
+        <h:form id="formMain">
+            <p:growl life="5000" globalOnly="true" id="growl1"/> 
+            <p:tabView>
                 <p:tab title="Datos Personales">
                     <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                         <p:outputLabel value="Año de Incorporación:" for="anhoIncorporacion" />
@@ -35,6 +36,9 @@
                         <p:outputLabel value="Teléfono:" for="telefono" />
                         <p:inputText id="telefono" value="#{FichaController.ficha.telefono}" title="Telefono" />
                         <p:message for="telefono"/>
+                        <f:facet name="footer">
+                            <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FichaController.doGuardar()}"/>
+                        </f:facet>
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Datos del Bautismo">
@@ -45,8 +49,13 @@
                         <p:outputLabel value="Diocesis:" for="diocesisBautismo" />
                         <p:inputText id="diocesisBautismo" value="#{FichaController.ficha.diocesisBautismo}" title="DiocesisBautismo" />
                         <p:message for="diocesisBautismo"/>
-                        <p:outputLabel value="Fecha:" for="fechaBautismo" />
-                        <p:inputText id="fechaBautismo" value="#{FichaController.ficha.fechaBautismo}" title="FechaBautismo" />
+                        <p:outputLabel value="Fecha Nacimiento:" for="fechaNacimiento" />
+                        <p:calendar navigator="true"  size="12" id="fechaNacimiento" value="#{FichaController.ficha.fechaNacimiento}" pattern="dd/MM/yyyy" title="Fecha Bautismo" required="true" requiredMessage="#{bundle.Requerido}">
+                        </p:calendar>
+                        <p:message for="fechaNacimiento"/>
+                        <p:outputLabel value="Fecha Bautismo:" for="fechaBautismo" />
+                        <p:calendar navigator="true"  size="12" id="fechaBautismo" value="#{FichaController.ficha.fechaBautismo}" pattern="dd/MM/yyyy" title="Fecha Bautismo" required="true" requiredMessage="#{bundle.Requerido}">
+                        </p:calendar>
                         <p:message for="fechaBautismo"/>
                         <p:outputLabel value="Libro:" for="libroBautismo" />
                         <p:inputText id="libroBautismo" value="#{FichaController.ficha.libroBautismo}" title="LibroBautismo" />
@@ -61,60 +70,50 @@
                         <p:inputText id="madrinaBautismo" value="#{FichaController.ficha.madrinaBautismo}" title="MadrinaBautismo" />
                         <p:message for="madrinaBautismo"/>
                         <p:outputLabel value="Observaciones:" for="observacionesBautismo" />
-                        <p:inputText id="observacionesBautismo" value="#{FichaController.ficha.observacionesBautismo}" title="ObservacionesBautismo" />
+                        <p:inputTextarea id="observacionesBautismo" value="#{FichaController.ficha.observacionesBautismo}" title="ObservacionesBautismo" />
                         <p:message for="observacionesBautismo"/>
                         <f:facet name="footer">
-                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                                <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{FichaController.doGuardar()}"/>
-                                <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{FichaController.doListaForm()}"/>
-                            </p:panelGrid>
+                            <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FichaController.doGuardar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Proceso de Formación Cristiana">
-                    <p:dataTable rowIndexVar="index" value="#{FichaController.listaFormacionCristiana}" var="item">
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nivel"/>
-                            </f:facet>
-                            <h:outputText value="#{index+1}. #{item.idNivel}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Edad"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idNivel.edad}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:inputText size="4" value="Año">
-                                      <f:convertNumber type="number" pattern="#,###"/>
+                    <p:accordionPanel value="#{FichaController.listaFormacionCristiana}" var="item">
+                        <p:tab title="#{item.idNivel} - [#{item.idNivel.edad} años]">
+                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                                <h:outputLabel for="anhoF" value="Año:"/>
+                                <p:inputText id="anhoF" value="#{item.anho}" required="true" requiredMessage="#{bundle.Requerido}">
+                                    <f:convertNumber type="number" pattern="#,###"/>
                                 </p:inputText>
-                            </f:facet>
-                            <p:inputText value="#{item.anho}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="IdCapilla"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idCapilla}"/>
-                            <p:inputTextarea value="#{item.informacionParroquia}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Responsable"/>
-                            </f:facet>
-                            <h:outputText value="#{item.responsable}"/>
-                            <h:outputText value="#{item.observaciones}"/>
-                        </p:column>
-                    </p:dataTable>
+                                <p:message for="anhoF"/>
+                                <h:outputLabel for="idCapillaF" value="Capilla:"/>
+                                <p:autoComplete id="idCapillaF" dropdown="true" value="#{item.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
+                                                var="capilla" itemLabel="#{capilla.nombre}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
+                                <p:message for="idCapillaF"/>
+                                <h:outputLabel for="infoParroquia" value="Información Adicional"/>
+                                <p:inputTextarea id="infoParroquia" value="#{item.informacionParroquia}"/>
+                                <p:message for="infoParroquia"/>
+                                <h:outputLabel for="infoResponsable" value="Coordinador/Delegado:"/>
+                                <p:inputText id="infoResponsable" value="#{item.responsable}"/>
+                                <p:message for="infoResponsable"/>
+                                <h:outputLabel for="observacionesResponsable" value="Observaciones:"/>
+                                <p:inputTextarea id="observacionesResponsable" value="#{item.observaciones}"/>
+                                <p:message for="observacionesResponsable"/>
+                                <f:facet name="footer">
+                                    <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FormacionCristianaController.doGuardar(item)}"/>
+                                </f:facet>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:accordionPanel>
                 </p:tab>
                 <p:tab title="Datos de Confirmación">
 
                 </p:tab>
-            </p:accordionPanel>
+            </p:tabView>
         </h:form>
-
+    </ui:define>
+    <ui:define name="ajax">
+        <ui:include src="/ajax.xhtml"/>
     </ui:define>
 
 </ui:composition>

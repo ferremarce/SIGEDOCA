@@ -6,9 +6,11 @@
 package catequesis.fachada;
 
 import catequesis.modelo.Capilla;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,13 @@ public class CapillaFacade extends AbstractFacade<Capilla> {
     public CapillaFacade() {
         super(Capilla.class);
     }
-    
+
+    public List<Capilla> getAllCapilla(String nombre) {
+        Query q = em.createQuery("SELECT a FROM Capilla a WHERE a.nombre LIKE :xNombre ORDER BY a.nombre");
+        q.setParameter("xNombre", "%" + nombre + "%");
+        List<Capilla> tr = q.getResultList();
+        return tr;
+
+    }
+
 }

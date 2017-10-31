@@ -28,13 +28,13 @@ import util.JSFutil.PersistAction;
 @Named(value = "CapillaController")
 @SessionScoped
 public class CapillaController implements Serializable {
-    
+
     private static final Logger LOG = Logger.getLogger(CapillaController.class.getName());
     ResourceBundle bundle = ResourceBundle.getBundle("propiedades.bundle", JSFutil.getmyLocale());
-    
+
     @Inject
     CapillaFacade capillaFacade;
-    
+
     private Capilla capilla;
     private List<Capilla> listaCapilla;
     private Diocesis tmpIdDiocesis;
@@ -45,6 +45,14 @@ public class CapillaController implements Serializable {
     public CapillaController() {
     }
 
+    public CapillaFacade getCapillaFacade() {
+        return capillaFacade;
+    }
+
+    public void setCapillaFacade(CapillaFacade capillaFacade) {
+        this.capillaFacade = capillaFacade;
+    }
+
     public Diocesis getTmpIdDiocesis() {
         return tmpIdDiocesis;
     }
@@ -52,38 +60,38 @@ public class CapillaController implements Serializable {
     public void setTmpIdDiocesis(Diocesis tmpIdDiocesis) {
         this.tmpIdDiocesis = tmpIdDiocesis;
     }
-    
+
     public Capilla getCapilla() {
         return capilla;
     }
-    
+
     public void setCapilla(Capilla capilla) {
         this.capilla = capilla;
     }
-    
+
     public List<Capilla> getListaCapilla() {
         return listaCapilla;
     }
-    
+
     public void setListaCapilla(List<Capilla> listaCapilla) {
         this.listaCapilla = listaCapilla;
     }
-    
+
     public String doListaForm() {
         this.listaCapilla = new ArrayList<>();
         return "/pages/ListarCapilla";
     }
-    
+
     public String doCrearForm() {
         this.capilla = new Capilla();
         return "/pages/CrearCapilla";
     }
-    
+
     public String doEditarForm(Integer id) {
         this.capilla = capillaFacade.find(id);
         return "/pages/CrearCapilla";
     }
-    
+
     public String doRefrescar() {
         this.listaCapilla = capillaFacade.findAll();
         if (this.listaCapilla.isEmpty()) {
@@ -93,7 +101,7 @@ public class CapillaController implements Serializable {
         }
         return "";
     }
-    
+
     public String doGuardar() {
         if (this.capilla.getIdCapilla() != null) {
             persist(PersistAction.UPDATE);
@@ -102,13 +110,13 @@ public class CapillaController implements Serializable {
         }
         return doListaForm();
     }
-    
+
     public String doBorrar(Integer id) {
         this.capilla = capillaFacade.find(id);
         persist(PersistAction.DELETE);
         return doListaForm();
     }
-    
+
     private void persist(PersistAction persistAction) {
         try {
             if (persistAction.compareTo(PersistAction.CREATE) == 0) {
@@ -133,5 +141,9 @@ public class CapillaController implements Serializable {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public List<Capilla> listaAutocompleteCapilla(String valor) {
+        return capillaFacade.getAllCapilla(valor);
+    }
+
 }

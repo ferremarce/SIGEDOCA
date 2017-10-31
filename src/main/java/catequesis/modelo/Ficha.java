@@ -6,6 +6,7 @@
 package catequesis.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,8 +18,9 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -71,10 +73,12 @@ public class Ficha implements Serializable {
     @Size(max = 65535)
     @Column(name = "diocesis_bautismo")
     private String diocesisBautismo;
-    @Lob
-    @Size(max = 65535)
+    @Column(name = "fecha_nacimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaNacimiento;
     @Column(name = "fecha_bautismo")
-    private String fechaBautismo;
+    @Temporal(TemporalType.DATE)
+    private Date fechaBautismo;
     @Column(name = "libro_bautismo")
     private Integer libroBautismo;
     @Column(name = "folio_bautismo")
@@ -181,11 +185,19 @@ public class Ficha implements Serializable {
         this.diocesisBautismo = diocesisBautismo;
     }
 
-    public String getFechaBautismo() {
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Date getFechaBautismo() {
         return fechaBautismo;
     }
 
-    public void setFechaBautismo(String fechaBautismo) {
+    public void setFechaBautismo(Date fechaBautismo) {
         this.fechaBautismo = fechaBautismo;
     }
 
@@ -261,5 +273,5 @@ public class Ficha implements Serializable {
     public String toString() {
         return "catequesis.modelo.Ficha[ idFicha=" + idFicha + " ]";
     }
-
+    
 }

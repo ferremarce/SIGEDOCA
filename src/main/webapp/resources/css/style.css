@@ -35,3 +35,50 @@ a {
         0 10px 10px rgba(0,0,0,.2),
         0 20px 20px rgba(0,0,0,.15);
 }
+/* text colors */
+.Orange {
+    color: #EF6C00;
+}
+.Purple {
+    color: #7E57C2;
+}
+.Blue {
+    color: #0277BD;
+}
+.Red {
+    color: #E53935;
+}
+.Brown {
+    color: #6D4C41;
+}
+.Lime {
+    color: #AFB42B;
+}
+.TealGreen {
+    color: #0097A7;
+}
+.Green {
+    color: #43A047;
+}
+.DarkGreen {
+    color: #00897B;
+}
+.Leaden {
+    color: #444D58;
+}
+.Pink {
+    color: #EC407A;
+}
+.White {
+    color: #fff;
+}
+.font1x{
+    font-size: 1.1em !important;
+}
+.font2x{
+    font-size: 1.3em !important;
+}
+.font3x{
+    font-size: 1.5em !important;
+}
+
