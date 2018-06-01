@@ -44,6 +44,14 @@ public class ParroquiaController implements Serializable {
     public ParroquiaController() {
     }
 
+    public ParroquiaFacade getParroquiaFacade() {
+        return parroquiaFacade;
+    }
+
+    public void setParroquiaFacade(ParroquiaFacade parroquiaFacade) {
+        this.parroquiaFacade = parroquiaFacade;
+    }
+
     public Parroquia getParroquia() {
         return parroquia;
     }

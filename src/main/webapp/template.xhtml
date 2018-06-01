@@ -16,7 +16,10 @@
             <p:link href="/">
                 <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
                     <p:graphicImage width="100" value="/img/logo.jpg"/>
-                    <h:outputText style="font-size: 1.8em; color: black" styleClass="tresD" value="Sistema de Gestión Documental de Catequesis"/>
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                        <h:outputText style="font-size: 1.8em; color: black" styleClass="tresD" value="Sistema de Gestión Documental de Catequesis"/>
+                        <h:outputText value="#{config.propietario_sistema}"/>
+                    </p:panelGrid>
                 </p:panelGrid>
             </p:link>
             <h:form>
@@ -30,6 +33,8 @@
                         <p:menuitem ajax="false" value="Parroquia" action="#{ParroquiaController.doListaForm()}"/>
                         <p:separator/>
                         <p:menuitem ajax="false" value="SubTipos" action="#{SubTipoController.doListaForm()}"/>
+                        <p:menuitem ajax="false" value="Parámetros" action="#{PropiedadController.editarParametroForm()}"/>
+                        <p:menuitem ajax="false" value="Jerarquías" action="#{TipoTreeController.doTipoTreeForm()}"/>
                     </p:submenu>
                 </p:menubar>
             </h:form>

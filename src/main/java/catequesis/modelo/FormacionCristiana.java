@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,16 +37,13 @@ public class FormacionCristiana implements Serializable {
     private Integer idFormacion;
     @Column(name = "anho")
     private Integer anho;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 3000)
     @Column(name = "informacion_parroquia")
     private String informacionParroquia;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "responsable")
     private String responsable;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 3000)
     @Column(name = "observaciones")
     private String observaciones;
     @JoinColumn(name = "id_nivel", referencedColumnName = "id_nivel")

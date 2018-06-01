@@ -34,7 +34,7 @@ public class Tipo implements Serializable {
     @NotNull
     @Column(name = "id_tipo")
     private Integer idTipo;
-    @Size(max = 45)
+    @Size(max = 255)
     @Column(name = "descripcion_tipo")
     private String descripcionTipo;
     @OneToMany(mappedBy = "idTipo")

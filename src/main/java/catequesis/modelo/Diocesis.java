@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -36,23 +35,19 @@ public class Diocesis implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_diocesis")
     private Integer idDiocesis;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "nombre")
     private String nombre;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "direccion")
     private String direccion;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "telefono")
     private String telefono;
     @Size(max = 255)
     @Column(name = "correo")
     private String correo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 3000)
     @Column(name = "datos_adicionales")
     private String datosAdicionales;
     @OneToMany(mappedBy = "idDiocesis")

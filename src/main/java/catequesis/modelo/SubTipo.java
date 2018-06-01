@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,8 +37,7 @@ public class SubTipo implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_sub_tipo")
     private Integer idSubTipo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "descripcion_sub_tipo")
     private String descripcionSubTipo;
     @OneToMany(mappedBy = "idZona")

@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,8 +49,7 @@ public class Capilla implements Serializable {
     @Size(max = 255)
     @Column(name = "correo")
     private String correo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 3000)
     @Column(name = "datos_adicionales")
     private String datosAdicionales;
     @JoinColumn(name = "id_parroquia", referencedColumnName = "id_parroquia")
@@ -164,7 +162,7 @@ public class Capilla implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Capilla[ idCapilla=" + idCapilla + " ]";
+        return this.nombre+" ["+this.idZona.getDescripcionSubTipo()+"]";
     }
     
 }

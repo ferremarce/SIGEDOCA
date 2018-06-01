@@ -8,5 +8,12 @@
             <base-name>propiedades.bundle</base-name>
             <var>bundle</var>
         </resource-bundle>
+        <resource-bundle>
+            <base-name>propiedades.config</base-name>
+            <var>config</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>en_PY</default-locale>
+        </locale-config>
     </application>
 </faces-config>

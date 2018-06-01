@@ -9,6 +9,8 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import util.JSFutil;
 
 /**
@@ -29,5 +31,13 @@ public class MainController implements Serializable {
         Calendar c = Calendar.getInstance();
         c.setTime(JSFutil.getFechaHoraActual());
         return "" + c.get(Calendar.YEAR);
+    }
+
+    public TimeZone getMyTimeZone() {
+        return JSFutil.getMyTimeZone();
+    }
+
+    public Locale getMyLocale() {
+        return JSFutil.getmyLocale();
     }
 }

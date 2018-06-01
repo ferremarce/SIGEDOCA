@@ -14,7 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,36 +40,28 @@ public class Ficha implements Serializable {
     private Integer idFicha;
     @Column(name = "anho_incorporacion")
     private Integer anhoIncorporacion;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "apellidos")
     private String apellidos;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "nombres")
     private String nombres;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "padre")
     private String padre;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "madre")
     private String madre;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "ci")
     private String ci;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "telefono")
     private String telefono;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "parroquia_bautismo")
     private String parroquiaBautismo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "diocesis_bautismo")
     private String diocesisBautismo;
     @Column(name = "fecha_nacimiento")
@@ -79,20 +70,19 @@ public class Ficha implements Serializable {
     @Column(name = "fecha_bautismo")
     @Temporal(TemporalType.DATE)
     private Date fechaBautismo;
+    @Size(max = 255)
     @Column(name = "libro_bautismo")
-    private Integer libroBautismo;
+    private String libroBautismo;
+    @Size(max = 255)
     @Column(name = "folio_bautismo")
-    private Integer folioBautismo;
-    @Lob
-    @Size(max = 65535)
+    private String folioBautismo;
+    @Size(max = 255)
     @Column(name = "padrino_bautismo")
     private String padrinoBautismo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "madrina_bautismo")
     private String madrinaBautismo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "observaciones_bautismo")
     private String observacionesBautismo;
     @OneToMany(mappedBy = "idFicha")
@@ -201,19 +191,19 @@ public class Ficha implements Serializable {
         this.fechaBautismo = fechaBautismo;
     }
 
-    public Integer getLibroBautismo() {
+    public String getLibroBautismo() {
         return libroBautismo;
     }
 
-    public void setLibroBautismo(Integer libroBautismo) {
+    public void setLibroBautismo(String libroBautismo) {
         this.libroBautismo = libroBautismo;
     }
 
-    public Integer getFolioBautismo() {
+    public String getFolioBautismo() {
         return folioBautismo;
     }
 
-    public void setFolioBautismo(Integer folioBautismo) {
+    public void setFolioBautismo(String folioBautismo) {
         this.folioBautismo = folioBautismo;
     }
 
@@ -271,7 +261,20 @@ public class Ficha implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Ficha[ idFicha=" + idFicha + " ]";
+        return this.nombres + " " + this.apellidos;
     }
-    
+
+    public FormacionCristiana ultimaFormacionCristiana() {
+        FormacionCristiana ultima = null;
+        for (FormacionCristiana fc : formacionCristianaList) {
+            if (ultima == null) {
+                ultima = fc;
+            } else if (ultima.getAnho() == null) {
+                ultima = fc;
+            } else if (ultima.getAnho() != null && fc.getAnho() != null && ultima.getAnho().compareTo(fc.getAnho()) <0) {
+                ultima = fc;
+            }
+        }
+        return ultima;
+    }
 }

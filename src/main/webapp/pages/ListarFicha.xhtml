@@ -26,12 +26,14 @@
                 <f:facet name="header">
                     Tabla de Datos
                 </f:facet>                
-                <p:column sortBy="#{item.toString()}" filterBy="#{item.toString()}"  filterMatchMode="contains">
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="Nombres y Apellidos" title="Click para ordenar..."/>
                     </f:facet>
                     <h:outputText value="#{index+1}. #{item.toString()}"/>
                     <h:outputText value="#{item.ci}"/>
+                    <p:separator/>
+                    <h:outputText value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">

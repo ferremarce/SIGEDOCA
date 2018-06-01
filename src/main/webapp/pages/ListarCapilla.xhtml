@@ -30,9 +30,9 @@
                     <f:facet name="header">
                         <h:outputText value="Capilla" title="Click para ordenar..."/>
                     </f:facet>
-                    <h:outputText value="#{index+1}. #{item.nombre}"/><br/>
-                    <h:outputText value="#{item.direccion}"/><br/>
-                    <h:outputText value="#{item.telefono}"/>
+                    <h:outputText styleClass="Brown fontBold" value="#{index+1}. #{item.nombre}"/><br/>
+                    <h:outputText rendered="#{item.direccion!=null}" value="#{item.direccion}"/><br/>
+                    <h:outputText rendered="#{item.telefono!=null}" value="#{item.telefono}"/>
                 </p:column>
                 <p:column sortBy="#{item.idZona.descripcionSubTipo}" filterBy="#{item.idZona.descripcionSubTipo}" filterMatchMode="contains">
                     <f:facet name="header">

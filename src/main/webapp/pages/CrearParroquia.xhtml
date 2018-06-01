@@ -22,7 +22,7 @@
                     <p:inputText id="nombre" value="#{ParroquiaController.parroquia.nombre}" title="Nombre" required="true" requiredMessage="#{bundle.Requerido}"/>
                     <p:message for="nombre"/>
                     <p:outputLabel value="Decanato:" for="idDecanato" />
-                    <p:selectOneMenu id="idDecanato" value="#{ParroquiaController.parroquia.idDecanato}" required="true" requiredMessage="#{bundle.Requerido}">  
+                    <p:selectOneMenu id="idDecanato" value="#{ParroquiaController.parroquia.idDecanato}">  
                         <f:selectItems value="#{SubTipoController.subTipoDecanatoSet}"/>
                     </p:selectOneMenu>
                     <p:message for="idDecanato"/>

@@ -14,15 +14,15 @@
             <p:growl life="5000" globalOnly="true" id="growl1"/> 
             <p:tabView>
                 <p:tab title="Datos Personales">
-                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:panelGrid id="panelDatosPersonales" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                         <p:outputLabel value="Año de Incorporación:" for="anhoIncorporacion" />
-                        <p:inputText id="anhoIncorporacion" value="#{FichaController.ficha.anhoIncorporacion}" title="AnhoIncorporacion" />
+                        <p:inputText id="anhoIncorporacion" value="#{FichaController.ficha.anhoIncorporacion}" title="AnhoIncorporacion" required="true" requiredMessage="#{bundle.Requerido}" />
                         <p:message for="anhoIncorporacion"/>
                         <p:outputLabel value="Apellidos:" for="apellidos" />
-                        <p:inputText id="apellidos" value="#{FichaController.ficha.apellidos}" title="Apellidos" />
+                        <p:inputText id="apellidos" value="#{FichaController.ficha.apellidos}" title="Apellidos" required="true" requiredMessage="#{bundle.Requerido}"/>
                         <p:message for="apellidos"/>
                         <p:outputLabel value="Nombres:" for="nombres" />
-                        <p:inputText id="nombres" value="#{FichaController.ficha.nombres}" title="Nombres" />
+                        <p:inputText id="nombres" value="#{FichaController.ficha.nombres}" title="Nombres" required="true" requiredMessage="#{bundle.Requerido}"/>
                         <p:message for="nombres"/>
                         <p:outputLabel value="Padre:" for="padre" />
                         <p:inputText id="padre" value="#{FichaController.ficha.padre}" title="Padre" />
@@ -37,12 +37,12 @@
                         <p:inputText id="telefono" value="#{FichaController.ficha.telefono}" title="Telefono" />
                         <p:message for="telefono"/>
                         <f:facet name="footer">
-                            <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FichaController.doGuardar()}"/>
+                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosPersonales" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosPersonales" action="#{FichaController.doGuardar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Datos del Bautismo">
-                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:panelGrid id="panelDatosBautismo" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                         <p:outputLabel value="Parroquia:" for="parroquiaBautismo" />
                         <p:inputText id="parroquiaBautismo" value="#{FichaController.ficha.parroquiaBautismo}" title="ParroquiaBautismo" />
                         <p:message for="parroquiaBautismo"/>
@@ -73,14 +73,14 @@
                         <p:inputTextarea id="observacionesBautismo" value="#{FichaController.ficha.observacionesBautismo}" title="ObservacionesBautismo" />
                         <p:message for="observacionesBautismo"/>
                         <f:facet name="footer">
-                            <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FichaController.doGuardar()}"/>
+                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosBautismo" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosBautismo" action="#{FichaController.doGuardar()}"/>
                         </f:facet>
                     </p:panelGrid>
                 </p:tab>
                 <p:tab title="Proceso de Formación Cristiana">
                     <p:accordionPanel value="#{FichaController.listaFormacionCristiana}" var="item">
                         <p:tab title="#{item.idNivel} - [#{item.idNivel.edad} años]">
-                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                            <p:panelGrid id="panelFormacionCristiana" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
                                 <h:outputLabel for="anhoF" value="Año:"/>
                                 <p:inputText id="anhoF" value="#{item.anho}" required="true" requiredMessage="#{bundle.Requerido}">
                                     <f:convertNumber type="number" pattern="#,###"/>
@@ -88,7 +88,7 @@
                                 <p:message for="anhoF"/>
                                 <h:outputLabel for="idCapillaF" value="Capilla:"/>
                                 <p:autoComplete id="idCapillaF" dropdown="true" value="#{item.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
-                                                var="capilla" itemLabel="#{capilla.nombre}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
+                                                var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
                                 <p:message for="idCapillaF"/>
                                 <h:outputLabel for="infoParroquia" value="Información Adicional"/>
                                 <p:inputTextarea id="infoParroquia" value="#{item.informacionParroquia}"/>
@@ -100,7 +100,7 @@
                                 <p:inputTextarea id="observacionesResponsable" value="#{item.observaciones}"/>
                                 <p:message for="observacionesResponsable"/>
                                 <f:facet name="footer">
-                                    <p:commandButton ajax="true" icon="fa fa-save" value="#{bundle.GuardarBoton}" update="@form" action="#{FormacionCristianaController.doGuardar(item)}"/>
+                                    <p:commandButton ajax="true" partialSubmit="true" process="panelFormacionCristiana" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelFormacionCristiana" action="#{FormacionCristianaController.doGuardar(item)}"/>
                                 </f:facet>
                             </p:panelGrid>
                         </p:tab>

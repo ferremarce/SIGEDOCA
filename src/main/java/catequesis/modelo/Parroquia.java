@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,23 +37,19 @@ public class Parroquia implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_parroquia")
     private Integer idParroquia;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "nombre")
     private String nombre;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "direccion")
     private String direccion;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "telefono")
     private String telefono;
     @Size(max = 255)
     @Column(name = "correo")
     private String correo;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 3000)
     @Column(name = "datos_adicionales")
     private String datosAdicionales;
     @OneToMany(mappedBy = "idParroquia")

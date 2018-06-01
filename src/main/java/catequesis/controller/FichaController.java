@@ -78,17 +78,19 @@ public class FichaController implements Serializable {
     }
 
     public String doCrearForm() {
+        System.out.println("------"+JSFutil.getmyLocale());
+
         this.ficha = new Ficha();
         return "/pages/CrearFicha";
     }
 
     public String doEditarForm(Integer id) {
         this.ficha = fichaFacade.find(id);
-        if (this.ficha.getFormacionCristianaList().isEmpty()){
+        if (this.ficha.getFormacionCristianaList().isEmpty()) {
             formacionCristianaFacade.createFichaFormacion(this.ficha.getIdFicha());
         }
         this.ficha = fichaFacade.find(id);
-        this.listaFormacionCristiana=fichaFacade.findAllFormacionCristiana(id);
+        this.listaFormacionCristiana = fichaFacade.findAllFormacionCristiana(id);
         return "/pages/CrearFicha";
     }
 

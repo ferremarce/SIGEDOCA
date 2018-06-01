@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -38,8 +37,7 @@ public class NivelCatequesis implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_nivel")
     private Integer idNivel;
-    @Lob
-    @Size(max = 65535)
+    @Size(max = 255)
     @Column(name = "descripcion_nivel")
     private String descripcionNivel;
     @Column(name = "edad")
@@ -129,7 +127,7 @@ public class NivelCatequesis implements Serializable {
 
     @Override
     public String toString() {
-        return this.getDescripcionNivel();
+        return this.descripcionNivel;
     }
     
 }

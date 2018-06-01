@@ -81,4 +81,7 @@ a {
 .font3x{
     font-size: 1.5em !important;
 }
+.fontBold{
+    font-weight: bold;
+}
 
