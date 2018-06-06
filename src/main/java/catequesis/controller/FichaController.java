@@ -73,14 +73,16 @@ public class FichaController implements Serializable {
     }
 
     public String doListaForm() {
-        this.listaFicha = new ArrayList<>();
+        if (this.listaFicha==null) {
+            this.listaFicha = new ArrayList<>();
+        }
         return "/pages/ListarFicha";
     }
 
     public String doCrearForm() {
-        System.out.println("------"+JSFutil.getmyLocale());
-
+        System.out.println("------" + JSFutil.getmyLocale());
         this.ficha = new Ficha();
+        this.listaFormacionCristiana = formacionCristianaFacade.listaFormacionTemplate();
         return "/pages/CrearFicha";
     }
 

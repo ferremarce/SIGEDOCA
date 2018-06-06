@@ -162,7 +162,7 @@ public class Capilla implements Serializable {
 
     @Override
     public String toString() {
-        return this.nombre+" ["+this.idZona.getDescripcionSubTipo()+"]";
+        return this.nombre;
     }
     
 }

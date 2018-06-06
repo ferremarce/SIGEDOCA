@@ -162,7 +162,7 @@ public class Parroquia implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Parroquia[ idParroquia=" + idParroquia + " ]";
+        return this.nombre;
     }
     
 }

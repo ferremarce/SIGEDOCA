@@ -138,7 +138,7 @@ public class Diocesis implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Diocesis[ idDiocesis=" + idDiocesis + " ]";
+        return this.nombre;
     }
     
 }

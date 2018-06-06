@@ -78,17 +78,21 @@ public class CapillaController implements Serializable {
     }
 
     public String doListaForm() {
-        this.listaCapilla = new ArrayList<>();
+        if (this.listaCapilla==null) {
+            this.listaCapilla = new ArrayList<>();
+        }
         return "/pages/ListarCapilla";
     }
 
     public String doCrearForm() {
         this.capilla = new Capilla();
+        this.tmpIdDiocesis=null;
         return "/pages/CrearCapilla";
     }
 
     public String doEditarForm(Integer id) {
         this.capilla = capillaFacade.find(id);
+        this.tmpIdDiocesis = capilla.getIdParroquia().getIdDiocesis();
         return "/pages/CrearCapilla";
     }
 

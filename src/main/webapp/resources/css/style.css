@@ -1,10 +1,26 @@
+.ui-widget {
+    font-family: Droid Sans,Arial,Helvetica,sans-serif;
+    font-size: 1em;
+}
+.ui-widget .ui-widget {
+    font-size: 1em;
+}
+.ui-widget input,
+.ui-widget select,
+.ui-widget textarea,
+.ui-widget button {
+    font-family: Droid Sans,Arial,Helvetica,sans-serif;
+    font-size: 0.8em;
+}
+/*.ui-datatable .ui-row-toggler {
+    cursor: pointer;
+    background: url(../../iconos/editP.png);
+    background-size: 32px 32px;
+}
+*/
 h1 { 
-    padding: 10px 10px 10px 10px;
     background: inherit;
     font-weight: bold;
-    margin-bottom: 10px;
-    border-left: 6px solid #009999;
-    border-bottom: 2px inset black;
     font-family: Droid Sans,Arial,Helvetica,sans-serif;
 }
 h2{

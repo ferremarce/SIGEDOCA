@@ -148,7 +148,7 @@ public class SubTipo implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.SubTipo[ idSubTipo=" + idSubTipo + " ]";
+        return this.descripcionSubTipo;
     }
     
 }
