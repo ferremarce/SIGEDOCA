@@ -13,7 +13,7 @@
             <var>config</var>
         </resource-bundle>
         <locale-config>
-            <default-locale>en_PY</default-locale>
+            <default-locale>es_PY</default-locale>
         </locale-config>
     </application>
 </faces-config>

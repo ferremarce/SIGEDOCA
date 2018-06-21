@@ -26,6 +26,7 @@
                 <p:menubar>
                     <p:submenu label="Administración" icon="ui-icon-gear">
                         <p:menuitem ajax="false" value="Capillas" action="#{CapillaController.doListaForm()}"/>
+                        <p:menuitem ajax="false" value="Datos de las Capillas" action="#{DetalleCapillaController.doCrearForm()}"/>
                         <p:menuitem ajax="false" value="Fichas de Inscripción" action="#{FichaController.doListaForm()}"/>
                     </p:submenu>
                     <p:submenu label="Configuración" icon="ui-icon-document">
@@ -41,6 +42,7 @@
             <ui:insert name="title">
             </ui:insert>
             <ui:insert name="ajax">
+                <ui:include src="/ajax.xhtml"/>
             </ui:insert>
             <ui:insert name="content">
             </ui:insert>

@@ -76,6 +76,10 @@ public class SubTipoController implements Serializable {
         return JSFutil.getSelectItems(subTipoFacade.findAllbyTipo(3, Boolean.TRUE), Boolean.TRUE);
     }
 
+    public SelectItem[] getSubTipoEstadoCivilSet() {
+        return JSFutil.getSelectItems(subTipoFacade.findAllbyTipo(4, Boolean.TRUE), Boolean.TRUE);
+    }
+
     public String doListaForm() {
         this.listaSubTipo = new ArrayList<>();
         return "/pages/ListarSubTipo";

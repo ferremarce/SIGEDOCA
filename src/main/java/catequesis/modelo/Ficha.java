@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -87,6 +89,25 @@ public class Ficha implements Serializable {
     private String observacionesBautismo;
     @OneToMany(mappedBy = "idFicha")
     private List<FormacionCristiana> formacionCristianaList;
+    @Size(max = 255)
+    @Column(name = "padrino_confirmacion")
+    private String padrinoConfirmacion;
+    @Size(max = 255)
+    @Column(name = "madrina_confirmacion")
+    private String madrinaConfirmacion;
+    @Size(max = 255)
+    @Column(name = "fecha_retiro")
+    private String fechaRetiro;
+    @Size(max = 255)
+    @Column(name = "obispo_celebrante")
+    private String obispoCelebrante;
+    @JoinColumn(name = "id_estado_civil_padrino", referencedColumnName = "id_sub_tipo")
+    @ManyToOne
+    private SubTipo idEstadoCivilPadrino;
+    @JoinColumn(name = "id_estado_civil_madrina", referencedColumnName = "id_sub_tipo")
+    @ManyToOne
+    private SubTipo idEstadoCivilMadrina;
+
 
     public Ficha() {
     }
@@ -276,5 +297,53 @@ public class Ficha implements Serializable {
             }
         }
         return ultima;
+    }
+
+    public String getPadrinoConfirmacion() {
+        return padrinoConfirmacion;
+    }
+
+    public void setPadrinoConfirmacion(String padrinoConfirmacion) {
+        this.padrinoConfirmacion = padrinoConfirmacion;
+    }
+
+    public String getMadrinaConfirmacion() {
+        return madrinaConfirmacion;
+    }
+
+    public void setMadrinaConfirmacion(String madrinaConfirmacion) {
+        this.madrinaConfirmacion = madrinaConfirmacion;
+    }
+
+    public String getFechaRetiro() {
+        return fechaRetiro;
+    }
+
+    public void setFechaRetiro(String fechaRetiro) {
+        this.fechaRetiro = fechaRetiro;
+    }
+
+    public String getObispoCelebrante() {
+        return obispoCelebrante;
+    }
+
+    public void setObispoCelebrante(String obispoCelebrante) {
+        this.obispoCelebrante = obispoCelebrante;
+    }
+
+    public SubTipo getIdEstadoCivilPadrino() {
+        return idEstadoCivilPadrino;
+    }
+
+    public void setIdEstadoCivilPadrino(SubTipo idEstadoCivilPadrino) {
+        this.idEstadoCivilPadrino = idEstadoCivilPadrino;
+    }
+
+    public SubTipo getIdEstadoCivilMadrina() {
+        return idEstadoCivilMadrina;
+    }
+
+    public void setIdEstadoCivilMadrina(SubTipo idEstadoCivilMadrina) {
+        this.idEstadoCivilMadrina = idEstadoCivilMadrina;
     }
 }

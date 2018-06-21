@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,6 +55,11 @@ public class SubTipo implements Serializable {
     @JoinColumn(name = "id_padre", referencedColumnName = "id_sub_tipo")
     @ManyToOne
     private SubTipo idPadre;
+    @OneToMany(mappedBy = "idEstadoCivilPadrino")
+    private List<Ficha> fichaList;
+    @OneToMany(mappedBy = "idEstadoCivilMadrina")
+    private List<Ficha> fichaList1;
+
 
     public SubTipo() {
     }
@@ -149,6 +155,24 @@ public class SubTipo implements Serializable {
     @Override
     public String toString() {
         return this.descripcionSubTipo;
+    }
+
+    @XmlTransient
+    public List<Ficha> getFichaList() {
+        return fichaList;
+    }
+
+    public void setFichaList(List<Ficha> fichaList) {
+        this.fichaList = fichaList;
+    }
+
+    @XmlTransient
+    public List<Ficha> getFichaList1() {
+        return fichaList1;
+    }
+
+    public void setFichaList1(List<Ficha> fichaList1) {
+        this.fichaList1 = fichaList1;
     }
     
 }

@@ -93,7 +93,7 @@ public class Tipo implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.Tipo[ idTipo=" + idTipo + " ]";
+        return this.descripcionTipo;
     }
     
 }

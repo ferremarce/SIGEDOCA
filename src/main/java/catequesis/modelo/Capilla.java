@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -30,6 +31,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Capilla.findAll", query = "SELECT c FROM Capilla c")})
 public class Capilla implements Serializable {
+
+    @OneToMany(mappedBy = "idCapilla")
+    @OrderBy("anho DESC")
+    private List<DetalleCapilla> detalleCapillaList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -164,5 +169,13 @@ public class Capilla implements Serializable {
     public String toString() {
         return this.nombre;
     }
-    
+
+    public List<DetalleCapilla> getDetalleCapillaList() {
+        return detalleCapillaList;
+    }
+
+    public void setDetalleCapillaList(List<DetalleCapilla> detalleCapillaList) {
+        this.detalleCapillaList = detalleCapillaList;
+    }
+
 }

@@ -80,7 +80,7 @@
                 <p:tab title="Formación Cristiana">
                     <p:dataTable id="dataTableFormacion" reflow="true" var="fc" rowIndexVar="index" value="#{FichaController.listaFormacionCristiana}">
                         <p:column width="50">
-                                <p:rowToggler />
+                            <p:rowToggler />
                         </p:column>
                         <p:rowExpansion>
                             <p:panelGrid id="panelFormacionCristiana" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
@@ -159,7 +159,45 @@
                     </p:accordionPanel>
                 </p:tab>
                 <p:tab title="Confirmación">
-
+                    <p:panelGrid id="panelDatosConfirmacion" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                            <p:outputPanel>
+                                <p:outputLabel value="Padrino:" for="padrinoConfirmacion" />
+                                <p:inputText id="padrinoConfirmacion" value="#{FichaController.ficha.padrinoConfirmacion}" title="PadrinoConfirmacion" />
+                                <p:message for="padrinoConfirmacion"/>
+                            </p:outputPanel>
+                            <p:outputPanel>
+                                <p:outputLabel value="Estado Civil:" for="idEstadoCivilPadrino" />
+                                <p:selectOneMenu id="idEstadoCivilPadrino" value="#{FichaController.ficha.idEstadoCivilPadrino}" >
+                                    <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
+                                </p:selectOneMenu>
+                                <p:message for="idEstadoCivilPadrino"/>
+                            </p:outputPanel>
+                            <p:outputPanel>
+                                <p:outputLabel value="Madrina:" for="madrinaConfirmacion" />
+                                <p:inputText id="madrinaConfirmacion" value="#{FichaController.ficha.madrinaConfirmacion}" title="MadrinaConfirmacion" />
+                                <p:message for="madrinaConfirmacion"/>
+                            </p:outputPanel>
+                            <p:outputPanel>
+                                <p:outputLabel value="Estado Civil:" for="idEstadoCivilMadrina" />
+                                <p:selectOneMenu id="idEstadoCivilMadrina" value="#{FichaController.ficha.idEstadoCivilMadrina}" >
+                                    <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
+                                </p:selectOneMenu>
+                                <p:message for="idEstadoCivilMadrina"/>
+                            </p:outputPanel>
+                        </p:panelGrid>
+                        <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                            <p:outputLabel value="Fecha Retiro:" for="fechaRetiro" />
+                            <p:inputText id="fechaRetiro" value="#{FichaController.ficha.fechaRetiro}" title="Fechas del Retiro" required="true" requiredMessage="#{bundle.Requerido}" />
+                            <p:message for="fechaRetiro"/>
+                            <p:outputLabel value="Obispo Celebrante:" for="obispoCelebrante" />
+                            <p:inputText id="obispoCelebrante" value="#{FichaController.ficha.obispoCelebrante}" title="ObispoCelebrante" required="true" requiredMessage="#{bundle.Requerido}" />
+                            <p:message for="obispoCelebrante"/>
+                        </p:panelGrid>
+                        <f:facet name="footer">
+                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosConfirmacion" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosConfirmacion" action="#{FichaController.doGuardar()}"/>
+                        </f:facet>
+                    </p:panelGrid>
                 </p:tab>
             </p:tabView>
         </h:form>

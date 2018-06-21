@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        <h1>Cargar Datos de Capilla</h1>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:growl life="5000" globalOnly="true" id="growl1"/> 
+            <p:outputLabel value="Año:" for="anho" />
+            <p:inputNumber disabled="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" id="anho" value="#{DetalleCapillaController.anho}" decimalPlaces="0" required="true" requiredMessage="#{bundle.Requerido}">
+                <f:convertNumber locale="es_PY" groupingUsed="false"/>
+            </p:inputNumber>
+            <p:commandButton disabled="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" ajax="true" icon="fa fa-chevron-circle-right" value="#{bundle.ProcesarBoton}" action="#{DetalleCapillaController.doProcesarAnho()}" update="@form" />
+            <p:panelGrid rendered="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-9">
+                <p:outputLabel value="Fecha de Primera Comunión:" for="fechaSacramentoComunion" />
+                <p:calendar id="fechaSacramentoComunion" value="#{DetalleCapillaController.fechaSacramentoComunion}" navigator="true"  size="12" title="FechaFactura" pattern="dd/MM/yyyy" />
+                <p:separator/>
+                <p:separator/>
+                <p:outputLabel value="Fecha de Inicio Retiro:" for="fechaInicioRetiro" />
+                <p:calendar id="fechaInicioRetiro" value="#{DetalleCapillaController.fechaInicioRetiro}" navigator="true"  size="12" title="FechaFactura" pattern="dd/MM/yyyy" />
+                <p:outputLabel value="Fecha de Fin Retiro:" for="fechaFinRetiro" />
+                <p:calendar id="fechaFinRetiro" value="#{DetalleCapillaController.fechaFinRetiro}" navigator="true"  size="12" title="FechaFactura" pattern="dd/MM/yyyy" />
+                <p:separator/>
+                <p:separator/>
+                <p:outputLabel value="Fecha de Confirmación:" for="fechaSacramentoConfirmacion" />
+                <p:calendar id="fechaSacramentoConfirmacion" value="#{DetalleCapillaController.fechaSacramentoConfirmacion}" navigator="true"  size="12" title="FechaFactura" pattern="dd/MM/yyyy" />
+                <p:outputLabel value="Celebrante de Confirmación:" for="celebranteConfirmacion" />
+                <p:inputText id="celebranteConfirmacion" value="#{DetalleCapillaController.celebranteConfirmacion}"/>
+                <f:facet name="footer">
+                    <p:commandButton ajax="true" value="#{bundle.ProcesarBoton}" action="#{DetalleCapillaController.doProcesar()}" update="@form" />
+                </f:facet>
+            </p:panelGrid>
+            <p:dataTable reflow="true" value="#{DetalleCapillaController.listaDatelleCapilla}" rowIndexVar="index" rowKey="#{item.toString()}" var="item" selectionMode="multiple" selection="#{DetalleCapillaController.selectedDatelleCapilla}">
+                <p:column width="50">
+                    <f:facet name="header">
+                        <h:outputText value="Id"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idDetalleCapilla}"/>
+                </p:column>
+                <p:column width="50">
+                    <f:facet name="header">
+                        <h:outputText value="Anho"/>
+                    </f:facet>
+                    <h:outputText value="#{item.anho}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Capilla"/>
+                    </f:facet>
+                    <h:outputText styleClass="fontBold" value="#{item.idCapilla.toString()}"/>
+                    <br/>
+                    <h:outputText value="#{item.idCapilla.idZona.descripcionSubTipo}"/>
+                </p:column>         
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha de 1ra Comunión"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaSacramentoComunion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha Retiro"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaInicioRetiro}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                    <h:outputText rendered="#{item.fechaInicioRetiro!=null}" value=" al "/>
+                    <h:outputText value="#{item.fechaFinRetiro}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha de Confirmación"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaSacramentoConfirmacion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Celebrante de Confirmacion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.celebranteConfirmacion}"/>
+                </p:column>               
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
