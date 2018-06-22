@@ -38,11 +38,20 @@ public class CapillaController implements Serializable {
     private Capilla capilla;
     private List<Capilla> listaCapilla;
     private Diocesis tmpIdDiocesis;
+    private String criterio;
 
     /**
      * Creates a new instance of CapillaController
      */
     public CapillaController() {
+    }
+
+    public String getCriterio() {
+        return criterio;
+    }
+
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
     }
 
     public CapillaFacade getCapillaFacade() {
@@ -78,7 +87,7 @@ public class CapillaController implements Serializable {
     }
 
     public String doListaForm() {
-        if (this.listaCapilla==null) {
+        if (this.listaCapilla == null) {
             this.listaCapilla = new ArrayList<>();
         }
         return "/pages/ListarCapilla";
@@ -86,7 +95,7 @@ public class CapillaController implements Serializable {
 
     public String doCrearForm() {
         this.capilla = new Capilla();
-        this.tmpIdDiocesis=null;
+        this.tmpIdDiocesis = null;
         return "/pages/CrearCapilla";
     }
 
@@ -97,7 +106,21 @@ public class CapillaController implements Serializable {
     }
 
     public String doRefrescar() {
-        this.listaCapilla = capillaFacade.findAll();
+        this.listaCapilla = capillaFacade.getAllCapilla("");
+        if (this.listaCapilla.isEmpty()) {
+            JSFutil.addErrorMessage("No hay resultados...");
+        } else {
+            JSFutil.addSuccessMessage(this.listaCapilla.size() + " registros recuperados");
+        }
+        return "";
+    }
+
+    public String doBuscar() {
+        if (this.criterio.isEmpty()) {
+            JSFutil.addErrorMessage("No hay criterios para buscar...");
+            return "";
+        }
+        this.listaCapilla = capillaFacade.getAllCapilla(this.criterio);
         if (this.listaCapilla.isEmpty()) {
             JSFutil.addErrorMessage("No hay resultados...");
         } else {

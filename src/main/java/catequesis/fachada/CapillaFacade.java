@@ -32,7 +32,7 @@ public class CapillaFacade extends AbstractFacade<Capilla> {
     }
 
     public List<Capilla> getAllCapilla(String nombre) {
-        Query q = em.createQuery("SELECT a FROM Capilla a WHERE a.nombre LIKE :xNombre ORDER BY a.nombre");
+        Query q = em.createQuery("SELECT a FROM Capilla a WHERE a.nombre LIKE :xNombre ORDER BY a.idZona.idSubTipo, a.nombre");
         q.setParameter("xNombre", "%" + nombre + "%");
         List<Capilla> tr = q.getResultList();
         return tr;

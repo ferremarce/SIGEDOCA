@@ -12,9 +12,9 @@
     <ui:define name="content">
         <h:form>
             <p:growl life="5000" globalOnly="true" id="messages"/> 
-            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
                 <p:commandButton value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{ParroquiaController.doCrearForm()}"/>
-                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-search" ajax="false" action="#{ParroquiaController.doRefrescar()}"/>
+                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{ParroquiaController.doRefrescar()}"/>
             </p:panelGrid>
             <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtParroquia" var="item" sortBy="#{item.idDiocesis.nombre}" value="#{ParroquiaController.listaParroquia}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
                          rows="50"
@@ -28,7 +28,7 @@
                         <h:outputText value="Diócesis #{item.idDiocesis.nombre}" />
                     </p:column>
                 </p:headerRow>
-                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}"  filterMatchMode="contains">
+                <p:column>
                     <h:outputText value="#{index+1}. #{item.toString()}"/><br/>
                     <h:outputText value="#{item.direccion}"/><br/>
                     <h:outputText value="#{item.telefono}"/>

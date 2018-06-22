@@ -12,9 +12,11 @@
     <ui:define name="content">
         <h:form>
             <p:growl life="5000" globalOnly="true" id="messages"/> 
-            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                <p:commandButton value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{FichaController.doCrearForm()}"/>
-                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-search" ajax="false" action="#{FichaController.doRefrescar()}"/>
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                <p:inputText id="criterio" value="#{FichaController.criterio}"/>
+                <p:commandButton value="#{bundle.BuscarBoton}" icon="fa fa-search" ajax="true" action="#{FichaController.doBuscar()}" update="@form"/>
+                <p:commandButton immediate="true" value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{FichaController.doCrearForm()}"/>
+                <p:commandButton immediate="true" value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{FichaController.doRefrescar()}"/>
             </p:panelGrid>
             <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtFicha" var="item" value="#{FichaController.listaFicha}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
                          rows="50"
@@ -32,19 +34,12 @@
                     </f:facet>
                     <h:outputText value="#{index+1}. #{item.toString()}"/>
                     <h:outputText value="#{item.ci}"/>
-                    <p:separator/>
-                    <h:outputText value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Datos Familiares" />
+                        <h:outputText value="Formación Reciente" />
                     </f:facet>
-                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-10">
-                        <h:outputLabel value="Padre:"/>
-                        <h:outputText value="#{item.padre}"/>
-                        <h:outputLabel value="Madre:"/>
-                        <h:outputText value="#{item.madre}"/>
-                    </p:panelGrid>
+                    <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla} - #{item.ultimaFormacionCristiana().idCapilla.idZona}"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">

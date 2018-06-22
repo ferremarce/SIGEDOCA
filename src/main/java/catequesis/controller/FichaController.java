@@ -41,11 +41,20 @@ public class FichaController implements Serializable {
     private Ficha ficha;
     private List<Ficha> listaFicha;
     private List<FormacionCristiana> listaFormacionCristiana;
+    private String criterio;
 
     /**
      * Creates a new instance of FichaController
      */
     public FichaController() {
+    }
+
+    public String getCriterio() {
+        return criterio;
+    }
+
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
     }
 
     public List<FormacionCristiana> getListaFormacionCristiana() {
@@ -73,7 +82,7 @@ public class FichaController implements Serializable {
     }
 
     public String doListaForm() {
-        if (this.listaFicha==null) {
+        if (this.listaFicha == null) {
             this.listaFicha = new ArrayList<>();
         }
         return "/pages/ListarFicha";
@@ -145,4 +154,19 @@ public class FichaController implements Serializable {
             LOG.log(Level.SEVERE, null, ex);
         }
     }
+
+    public String doBuscar() {
+        if (this.criterio.isEmpty()) {
+            JSFutil.addErrorMessage("No hay criterios para buscar...");
+            return "";
+        }
+        this.listaFicha = fichaFacade.findAllFicha(criterio);
+        if (this.listaFicha.isEmpty()) {
+            JSFutil.addErrorMessage("No hay resultados...");
+        } else {
+            JSFutil.addSuccessMessage(this.listaFicha.size() + " registros recuperados");
+        }
+        return "";
+    }
+
 }

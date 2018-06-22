@@ -48,14 +48,14 @@
                     <p:message for="datosAdicionales"/>
                 </p:panelGrid>
                 <f:facet name="footer">
-                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
                         <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{CapillaController.doGuardar()}"/>
                         <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="#{CapillaController.doListaForm()}"/>
                     </p:panelGrid>
                 </f:facet>
             </p:panel>
             <p:panel header="Detalle de Capilla">
-                <p:dataTable reflow="true" value="#{CapillaController.capilla.detalleCapillaList}" var="item">
+                <p:dataTable reflow="true" value="#{CapillaController.capilla.detalleCapillaList}" var="item" emptyMessage="#{bundle.SinRegistrosMensaje}">
                     <p:column width="50">
                         <f:facet name="header">
                             <h:outputText value="Id"/>

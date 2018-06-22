@@ -20,7 +20,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
+import org.eclipse.persistence.annotations.Index;
 
 /**
  *
@@ -28,9 +30,14 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "detalle_capilla")
+@Index(name = "IDX_MYIDX1", columnNames = { "idCapilla", "anho"})
 @NamedQueries({
     @NamedQuery(name = "DetalleCapilla.findAll", query = "SELECT d FROM DetalleCapilla d")})
 public class DetalleCapilla implements Serializable {
+
+    @Column(name = "fecha_sacramento_confesion")
+    @Temporal(TemporalType.DATE)
+    private Date fechaSacramentoConfesion;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,9 +71,6 @@ public class DetalleCapilla implements Serializable {
     @Column(name = "fecha_sacramento_comunion")
     @Temporal(TemporalType.DATE)
     private Date fechaSacramentoComunion;
-    @Size(max = 45)
-    @Column(name = "fecha_sacramento_confesion")
-    private String fechaSacramentoConfesion;
     @JoinColumn(name = "id_capilla", referencedColumnName = "id_capilla")
     @ManyToOne
     private Capilla idCapilla;
@@ -126,7 +130,6 @@ public class DetalleCapilla implements Serializable {
         this.fechaInicioRetiro = fechaInicioRetiro;
     }
 
-   
     public Date getFechaFinRetiro() {
         return fechaFinRetiro;
     }
@@ -157,14 +160,6 @@ public class DetalleCapilla implements Serializable {
 
     public void setFechaSacramentoComunion(Date fechaSacramentoComunion) {
         this.fechaSacramentoComunion = fechaSacramentoComunion;
-    }
-
-    public String getFechaSacramentoConfesion() {
-        return fechaSacramentoConfesion;
-    }
-
-    public void setFechaSacramentoConfesion(String fechaSacramentoConfesion) {
-        this.fechaSacramentoConfesion = fechaSacramentoConfesion;
     }
 
     public Capilla getIdCapilla() {
@@ -199,5 +194,13 @@ public class DetalleCapilla implements Serializable {
     public String toString() {
         return "catequesis.modelo.DetalleCapilla[ idDetalleCapilla=" + idDetalleCapilla + " ]";
     }
-    
+
+    public Date getFechaSacramentoConfesion() {
+        return fechaSacramentoConfesion;
+    }
+
+    public void setFechaSacramentoConfesion(Date fechaSacramentoConfesion) {
+        this.fechaSacramentoConfesion = fechaSacramentoConfesion;
+    }
+
 }

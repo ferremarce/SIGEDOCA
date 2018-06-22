@@ -12,10 +12,13 @@
     <ui:define name="content">
         <h:form>
             <p:growl life="5000" globalOnly="true" id="messages"/> 
-            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                <p:commandButton value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{CapillaController.doCrearForm()}"/>
-                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-search" ajax="false" action="#{CapillaController.doRefrescar()}"/>
+            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank">
+                <p:inputText id="criterio" value="#{CapillaController.criterio}"/>
+                <p:commandButton value="#{bundle.BuscarBoton}" icon="fa fa-search" ajax="true" action="#{CapillaController.doBuscar()}" update="@form"/>
+                <p:commandButton immediate="true" value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{CapillaController.doCrearForm()}"/>
+                <p:commandButton immediate="true" value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{CapillaController.doRefrescar()}"/>
             </p:panelGrid>
+            <p:watermark for="criterio" value="Buscar..."/>
             <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtCapilla" var="item" value="#{CapillaController.listaCapilla}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
                          rows="50"
                          paginator="true"
@@ -26,15 +29,13 @@
                 <f:facet name="header">
                     Tabla de Datos
                 </f:facet>                
-                <p:column sortBy="#{item.nombre}" filterBy="#{item.nombre}"  filterMatchMode="contains">
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="Capilla" title="Click para ordenar..."/>
                     </f:facet>
-                    <h:outputText styleClass="Brown fontBold" value="#{index+1}. #{item.nombre}"/><br/>
-                    <h:outputText rendered="#{item.direccion!=null}" value="#{item.direccion}"/><br/>
-                    <h:outputText rendered="#{item.telefono!=null}" value="#{item.telefono}"/>
+                    <h:outputText styleClass="Brown fontBold" value="#{index+1}. #{item.nombre}"/>
                 </p:column>
-                <p:column sortBy="#{item.idZona.descripcionSubTipo}" filterBy="#{item.idZona.descripcionSubTipo}" filterMatchMode="contains">
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="Zona" title="Click para ordenar..."/>
                     </f:facet>

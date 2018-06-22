@@ -45,4 +45,13 @@ public class FichaFacade extends AbstractFacade<Ficha> {
         List<FormacionCristiana> tr = q.getResultList();
         return tr;
     }
+
+    public List<Ficha> findAllFicha(String criterio) {
+        String sql = "SELECT a FROM Ficha a WHERE CONCAT(a.nombres,' ',a.apellidos) LIKE :xCriterio ORDER BY a.apellidos, a.nombres";
+        Query q = em.createQuery(sql);
+        q.setParameter("xCriterio", "%"+criterio+"%");
+        LOG.log(Level.INFO, "findAllFicha: {0}", sql);
+        List<Ficha> tr = q.getResultList();
+        return tr;
+    }
 }
