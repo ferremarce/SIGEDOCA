@@ -160,7 +160,7 @@ public class FichaController implements Serializable {
             JSFutil.addErrorMessage("No hay criterios para buscar...");
             return "";
         }
-        this.listaFicha = fichaFacade.findAllFicha(criterio);
+        this.listaFicha = fichaFacade.findAllFicha(criterio.replace(" ", "%"));
         if (this.listaFicha.isEmpty()) {
             JSFutil.addErrorMessage("No hay resultados...");
         } else {

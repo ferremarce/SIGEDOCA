@@ -12,198 +12,159 @@
     <ui:define name="content">
         <h:form id="formMain">
             <p:growl life="5000" globalOnly="true" id="growl1"/> 
-            <p:tabView>
-                <p:tab title="Datos Personales">
-                    <p:panelGrid id="panelDatosPersonales" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                        <p:outputLabel value="Año de Incorporación:" for="anhoIncorporacion" />
-                        <p:inputText id="anhoIncorporacion" value="#{FichaController.ficha.anhoIncorporacion}" title="AnhoIncorporacion" required="true" requiredMessage="#{bundle.Requerido}" />
-                        <p:message for="anhoIncorporacion"/>
-                        <p:outputLabel value="Apellidos:" for="apellidos" />
-                        <p:inputText id="apellidos" value="#{FichaController.ficha.apellidos}" title="Apellidos" required="true" requiredMessage="#{bundle.Requerido}"/>
-                        <p:message for="apellidos"/>
-                        <p:outputLabel value="Nombres:" for="nombres" />
-                        <p:inputText id="nombres" value="#{FichaController.ficha.nombres}" title="Nombres" required="true" requiredMessage="#{bundle.Requerido}"/>
-                        <p:message for="nombres"/>
-                        <p:outputLabel value="Padre:" for="padre" />
-                        <p:inputText id="padre" value="#{FichaController.ficha.padre}" title="Padre" />
-                        <p:message for="padre"/>
-                        <p:outputLabel value="Madre:" for="madre" />
-                        <p:inputText id="madre" value="#{FichaController.ficha.madre}" title="Madre" />
-                        <p:message for="madre"/>
-                        <p:outputLabel value="Documento de Identidad:" for="ci" />
-                        <p:inputText id="ci" value="#{FichaController.ficha.ci}" title="Ci" />
-                        <p:message for="ci"/>
-                        <p:outputLabel value="Teléfono:" for="telefono" />
-                        <p:inputText id="telefono" value="#{FichaController.ficha.telefono}" title="Telefono" />
-                        <p:message for="telefono"/>
-                        <f:facet name="footer">
-                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosPersonales" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosPersonales" action="#{FichaController.doGuardar()}"/>
-                        </f:facet>
-                    </p:panelGrid>
-                </p:tab>
-                <p:tab title="Bautismo">
-                    <p:panelGrid id="panelDatosBautismo" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                        <p:outputLabel value="Parroquia:" for="parroquiaBautismo" />
-                        <p:inputText id="parroquiaBautismo" value="#{FichaController.ficha.parroquiaBautismo}" title="ParroquiaBautismo" />
-                        <p:message for="parroquiaBautismo"/>
-                        <p:outputLabel value="Diocesis:" for="diocesisBautismo" />
-                        <p:inputText id="diocesisBautismo" value="#{FichaController.ficha.diocesisBautismo}" title="DiocesisBautismo" />
-                        <p:message for="diocesisBautismo"/>
-                        <p:outputLabel value="Fecha Nacimiento:" for="fechaNacimiento" />
-                        <p:calendar navigator="true"  size="12" id="fechaNacimiento" value="#{FichaController.ficha.fechaNacimiento}" pattern="dd/MM/yyyy" title="Fecha Bautismo" required="true" requiredMessage="#{bundle.Requerido}">
-                        </p:calendar>
-                        <p:message for="fechaNacimiento"/>
-                        <p:outputLabel value="Fecha Bautismo:" for="fechaBautismo" />
-                        <p:calendar navigator="true"  size="12" id="fechaBautismo" value="#{FichaController.ficha.fechaBautismo}" pattern="dd/MM/yyyy" title="Fecha Bautismo" required="true" requiredMessage="#{bundle.Requerido}">
-                        </p:calendar>
-                        <p:message for="fechaBautismo"/>
-                        <p:outputLabel value="Libro:" for="libroBautismo" />
-                        <p:inputText id="libroBautismo" value="#{FichaController.ficha.libroBautismo}" title="LibroBautismo" />
-                        <p:message for="libroBautismo"/>
-                        <p:outputLabel value="Folio:" for="folioBautismo" />
-                        <p:inputText id="folioBautismo" value="#{FichaController.ficha.folioBautismo}" title="FolioBautismo" />
-                        <p:message for="folioBautismo"/>
-                        <p:outputLabel value="Padrino:" for="padrinoBautismo" />
-                        <p:inputText id="padrinoBautismo" value="#{FichaController.ficha.padrinoBautismo}" title="PadrinoBautismo" />
-                        <p:message for="padrinoBautismo"/>
-                        <p:outputLabel value="Madrina:" for="madrinaBautismo" />
-                        <p:inputText id="madrinaBautismo" value="#{FichaController.ficha.madrinaBautismo}" title="MadrinaBautismo" />
-                        <p:message for="madrinaBautismo"/>
-                        <p:outputLabel value="Observaciones:" for="observacionesBautismo" />
-                        <p:inputTextarea id="observacionesBautismo" value="#{FichaController.ficha.observacionesBautismo}" title="ObservacionesBautismo" />
-                        <p:message for="observacionesBautismo"/>
-                        <f:facet name="footer">
-                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosBautismo" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosBautismo" action="#{FichaController.doGuardar()}"/>
-                        </f:facet>
-                    </p:panelGrid>
-                </p:tab>
-                <p:tab title="Formación Cristiana">
-                    <p:dataTable id="dataTableFormacion" reflow="true" var="fc" rowIndexVar="index" value="#{FichaController.listaFormacionCristiana}">
-                        <p:column width="50">
-                            <p:rowToggler />
-                        </p:column>
-                        <p:rowExpansion>
-                            <p:panelGrid id="panelFormacionCristiana" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                                <h:outputLabel for="anhoF" value="Año:"/>
-                                <p:inputText id="anhoF" value="#{fc.anho}" required="true" requiredMessage="#{bundle.Requerido}">
-                                    <f:convertNumber type="number" pattern="#,###"/>
-                                </p:inputText>
-                                <p:message for="anhoF"/>
-                                <h:outputLabel for="idCapillaF" value="Capilla:"/>
-                                <p:autoComplete id="idCapillaF" dropdown="true" value="#{fc.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
-                                                var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
-                                <p:message for="idCapillaF"/>
-                                <h:outputLabel for="infoParroquia" value="Información Adicional"/>
-                                <p:inputTextarea id="infoParroquia" value="#{fc.informacionParroquia}"/>
-                                <p:message for="infoParroquia"/>
-                                <h:outputLabel for="infoResponsable" value="Coordinador/Delegado:"/>
-                                <p:inputText id="infoResponsable" value="#{fc.responsable}"/>
-                                <p:message for="infoResponsable"/>
-                                <h:outputLabel for="observacionesResponsable" value="Observaciones:"/>
-                                <p:inputTextarea id="observacionesResponsable" value="#{fc.observaciones}"/>
-                                <p:message for="observacionesResponsable"/>
-                                <f:facet name="footer">
-                                    <p:commandButton ajax="true" partialSubmit="true" process="panelFormacionCristiana" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 dataTableFormacion" action="#{FormacionCristianaController.doGuardar(fc)}"/>
-                                </f:facet>
-                            </p:panelGrid>
-                        </p:rowExpansion>
-                        <p:column headerText="Nivel">
-                            <h:outputText value="#{fc.idNivel} - [#{fc.idNivel.edad} años]" />
-                        </p:column>
-                        <p:column headerText="Año" width="50">
-                            <h:outputText value="#{fc.anho}">
-                                <f:convertNumber locale="es" type="number" pattern="#,###"/>
-                            </h:outputText>
-                        </p:column>
-                        <p:column headerText="Capilla/Zona/Parroquia">
-                            <h:outputText styleClass="fontBold" value="#{fc.idCapilla.nombre}"/><br/>
-                            <h:outputText value="#{fc.idCapilla.idZona.descripcionSubTipo}"/><br/>
-                            <h:outputText value=" #{fc.idCapilla.idParroquia.nombre}"/>
-                        </p:column>
-                        <p:column headerText="Coordinador/Delegado">
-                            <h:outputText value="#{fc.responsable}"/>
-                        </p:column>
-                        <p:column headerText="Observaciones">
-                            <h:outputText value="#{fc.observaciones}"/>
-                        </p:column>
-                    </p:dataTable>
-
-                </p:tab>
-                <p:tab rendered="false" title="Proceso de Formación Cristiana">
-                    <p:accordionPanel value="#{FichaController.listaFormacionCristiana}" var="item">
-                        <p:tab title="#{item.idNivel} - [#{item.idNivel.edad} años]">
-                            <p:panelGrid id="panelFormacionCristiana" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                                <h:outputLabel for="anhoF" value="Año:"/>
-                                <p:inputText id="anhoF" value="#{item.anho}" required="true" requiredMessage="#{bundle.Requerido}">
-                                    <f:convertNumber type="number" pattern="#,###"/>
-                                </p:inputText>
-                                <p:message for="anhoF"/>
-                                <h:outputLabel for="idCapillaF" value="Capilla:"/>
-                                <p:autoComplete id="idCapillaF" dropdown="true" value="#{item.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
-                                                var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
-                                <p:message for="idCapillaF"/>
-                                <h:outputLabel for="infoParroquia" value="Información Adicional"/>
-                                <p:inputTextarea id="infoParroquia" value="#{item.informacionParroquia}"/>
-                                <p:message for="infoParroquia"/>
-                                <h:outputLabel for="infoResponsable" value="Coordinador/Delegado:"/>
-                                <p:inputText id="infoResponsable" value="#{item.responsable}"/>
-                                <p:message for="infoResponsable"/>
-                                <h:outputLabel for="observacionesResponsable" value="Observaciones:"/>
-                                <p:inputTextarea id="observacionesResponsable" value="#{item.observaciones}"/>
-                                <p:message for="observacionesResponsable"/>
-                                <f:facet name="footer">
-                                    <p:commandButton ajax="true" partialSubmit="true" process="panelFormacionCristiana" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelFormacionCristiana" action="#{FormacionCristianaController.doGuardar(item)}"/>
-                                </f:facet>
-                            </p:panelGrid>
-                        </p:tab>
-                    </p:accordionPanel>
-                </p:tab>
-                <p:tab title="Confirmación">
-                    <p:panelGrid id="panelDatosConfirmacion" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
-                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
-                            <p:outputPanel>
-                                <p:outputLabel value="Padrino:" for="padrinoConfirmacion" />
-                                <p:inputText id="padrinoConfirmacion" value="#{FichaController.ficha.padrinoConfirmacion}" title="PadrinoConfirmacion" />
-                                <p:message for="padrinoConfirmacion"/>
-                            </p:outputPanel>
-                            <p:outputPanel>
-                                <p:outputLabel value="Estado Civil:" for="idEstadoCivilPadrino" />
-                                <p:selectOneMenu id="idEstadoCivilPadrino" value="#{FichaController.ficha.idEstadoCivilPadrino}" >
-                                    <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
-                                </p:selectOneMenu>
-                                <p:message for="idEstadoCivilPadrino"/>
-                            </p:outputPanel>
-                            <p:outputPanel>
-                                <p:outputLabel value="Madrina:" for="madrinaConfirmacion" />
-                                <p:inputText id="madrinaConfirmacion" value="#{FichaController.ficha.madrinaConfirmacion}" title="MadrinaConfirmacion" />
-                                <p:message for="madrinaConfirmacion"/>
-                            </p:outputPanel>
-                            <p:outputPanel>
-                                <p:outputLabel value="Estado Civil:" for="idEstadoCivilMadrina" />
-                                <p:selectOneMenu id="idEstadoCivilMadrina" value="#{FichaController.ficha.idEstadoCivilMadrina}" >
-                                    <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
-                                </p:selectOneMenu>
-                                <p:message for="idEstadoCivilMadrina"/>
-                            </p:outputPanel>
+            <p:panel header="Datos Personales">
+                <p:panelGrid id="panelDatosPersonales" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Año de Incorporación:" for="anhoIncorporacion" />
+                    <p:inputText id="anhoIncorporacion" value="#{FichaController.ficha.anhoIncorporacion}" title="AnhoIncorporacion" required="true" requiredMessage="#{bundle.Requerido}" />
+                    <p:message for="anhoIncorporacion"/>
+                    <p:outputLabel value="Apellidos:" for="apellidos" />
+                    <p:inputText id="apellidos" value="#{FichaController.ficha.apellidos}" title="Apellidos" required="true" requiredMessage="#{bundle.Requerido}"/>
+                    <p:message for="apellidos"/>
+                    <p:outputLabel value="Nombres:" for="nombres" />
+                    <p:inputText id="nombres" value="#{FichaController.ficha.nombres}" title="Nombres" required="true" requiredMessage="#{bundle.Requerido}"/>
+                    <p:message for="nombres"/>
+                    <p:outputLabel value="Padre:" for="padre" />
+                    <p:inputText id="padre" value="#{FichaController.ficha.padre}" title="Padre" />
+                    <p:message for="padre"/>
+                    <p:outputLabel value="Madre:" for="madre" />
+                    <p:inputText id="madre" value="#{FichaController.ficha.madre}" title="Madre" />
+                    <p:message for="madre"/>
+                    <p:outputLabel value="Documento de Identidad:" for="ci" />
+                    <p:inputText id="ci" value="#{FichaController.ficha.ci}" title="Ci" />
+                    <p:message for="ci"/>
+                    <p:outputLabel value="Teléfono:" for="telefono" />
+                    <p:inputText id="telefono" value="#{FichaController.ficha.telefono}" title="Telefono" />
+                    <p:message for="telefono"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel header="Bautismo">
+                <p:panelGrid id="panelDatosBautismo" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Parroquia:" for="parroquiaBautismo" />
+                    <p:inputText id="parroquiaBautismo" value="#{FichaController.ficha.parroquiaBautismo}" title="ParroquiaBautismo" />
+                    <p:message for="parroquiaBautismo"/>
+                    <p:outputLabel value="Diocesis:" for="diocesisBautismo" />
+                    <p:inputText id="diocesisBautismo" value="#{FichaController.ficha.diocesisBautismo}" title="DiocesisBautismo" />
+                    <p:message for="diocesisBautismo"/>
+                    <p:outputLabel value="Fecha Nacimiento:" for="fechaNacimiento" />
+                    <p:calendar navigator="true"  size="12" id="fechaNacimiento" value="#{FichaController.ficha.fechaNacimiento}" pattern="dd/MM/yyyy" title="Fecha Nacimiento">
+                    </p:calendar>
+                    <p:message for="fechaNacimiento"/>
+                    <p:outputLabel value="Fecha Bautismo:" for="fechaBautismo" />
+                    <p:calendar navigator="true"  size="12" id="fechaBautismo" value="#{FichaController.ficha.fechaBautismo}" pattern="dd/MM/yyyy" title="Fecha Bautismo">
+                    </p:calendar>
+                    <p:message for="fechaBautismo"/>
+                    <p:outputLabel value="Libro:" for="libroBautismo" />
+                    <p:inputText id="libroBautismo" value="#{FichaController.ficha.libroBautismo}" title="LibroBautismo" />
+                    <p:message for="libroBautismo"/>
+                    <p:outputLabel value="Folio:" for="folioBautismo" />
+                    <p:inputText id="folioBautismo" value="#{FichaController.ficha.folioBautismo}" title="FolioBautismo" />
+                    <p:message for="folioBautismo"/>
+                    <p:outputLabel value="Padrino:" for="padrinoBautismo" />
+                    <p:inputText id="padrinoBautismo" value="#{FichaController.ficha.padrinoBautismo}" title="PadrinoBautismo" />
+                    <p:message for="padrinoBautismo"/>
+                    <p:outputLabel value="Madrina:" for="madrinaBautismo" />
+                    <p:inputText id="madrinaBautismo" value="#{FichaController.ficha.madrinaBautismo}" title="MadrinaBautismo" />
+                    <p:message for="madrinaBautismo"/>
+                    <p:outputLabel value="Observaciones:" for="observacionesBautismo" />
+                    <p:inputTextarea id="observacionesBautismo" value="#{FichaController.ficha.observacionesBautismo}" title="ObservacionesBautismo" />
+                    <p:message for="observacionesBautismo"/>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel header="Formación Cristiana">
+                <p:dataTable id="dataTableFormacion" reflow="true" var="fc" rowIndexVar="index" value="#{FichaController.listaFormacionCristiana}">
+                    <p:column rendered="false" width="50">
+                        <p:rowToggler />
+                    </p:column>
+                    <!--p:rowExpansion>
+                        <p:panelGrid id="panelFormacionCristiana" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                            <h:outputLabel for="anhoF" value="Año:"/>
+                            <p:inputText id="anhoF" value="#{fc.anho}" required="true" requiredMessage="#{bundle.Requerido}">
+                                <f:convertNumber type="number" pattern="#,###"/>
+                            </p:inputText>
+                            <p:message for="anhoF"/>
+                            <h:outputLabel for="idCapillaF" value="Capilla:"/>
+                            <p:autoComplete id="idCapillaF" dropdown="true" value="#{fc.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
+                                            var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}"/>
+                            <p:message for="idCapillaF"/>
+                            <h:outputLabel for="infoParroquia" value="Información Adicional"/>
+                            <p:inputTextarea id="infoParroquia" value="#{fc.informacionParroquia}"/>
+                            <p:message for="infoParroquia"/>
+                            <h:outputLabel for="infoResponsable" value="Coordinador/Delegado:"/>
+                            <p:inputText id="infoResponsable" value="#{fc.responsable}"/>
+                            <p:message for="infoResponsable"/>
+                            <h:outputLabel for="observacionesResponsable" value="Observaciones:"/>
+                            <p:inputTextarea id="observacionesResponsable" value="#{fc.observaciones}"/>
+                            <p:message for="observacionesResponsable"/>
+                            <f:facet name="footer">
+                                <p:commandButton ajax="true" partialSubmit="true" process="panelFormacionCristiana" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 dataTableFormacion" action="#{FormacionCristianaController.doGuardar(fc)}"/>
+                            </f:facet>
                         </p:panelGrid>
-                        <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                            <p:outputLabel value="Fecha Retiro:" for="fechaRetiro" />
-                            <p:inputText id="fechaRetiro" value="#{FichaController.ficha.fechaRetiro}" title="Fechas del Retiro" required="true" requiredMessage="#{bundle.Requerido}" />
-                            <p:message for="fechaRetiro"/>
-                            <p:outputLabel value="Obispo Celebrante:" for="obispoCelebrante" />
-                            <p:inputText id="obispoCelebrante" value="#{FichaController.ficha.obispoCelebrante}" title="ObispoCelebrante" required="true" requiredMessage="#{bundle.Requerido}" />
-                            <p:message for="obispoCelebrante"/>
-                        </p:panelGrid>
-                        <f:facet name="footer">
-                            <p:commandButton ajax="true" partialSubmit="true" process="panelDatosConfirmacion" icon="fa fa-save" value="#{bundle.GuardarBoton}" update=":formMain:growl1 panelDatosConfirmacion" action="#{FichaController.doGuardar()}"/>
-                        </f:facet>
+                    </p:rowExpansion-->
+                    <p:column headerText="Nivel">
+                        <h:outputText value="#{fc.idNivel} - [#{fc.idNivel.edad} años]" />
+                    </p:column>
+                    <p:column headerText="Año" width="60">
+                        <p:inputNumber id="anhoF" value="#{fc.anho}" decimalPlaces="0">
+                            <f:convertNumber locale="es_PY" groupingUsed="false"/>
+                        </p:inputNumber>
+                    </p:column>
+                    <p:column headerText="Capilla/Zona/Parroquia">
+                        <p:autoComplete id="idCapillaF" dropdown="true" value="#{fc.idCapilla}" completeMethod="#{CapillaController.listaAutocompleteCapilla}"
+                                        var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" />
+                    </p:column>
+                    <p:column headerText="Coordinador/Delegado">
+                        <p:inputText value="#{fc.responsable}"/>
+                    </p:column>
+                    <p:column headerText="Observaciones">
+                        <p:inputText value="#{fc.observaciones}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <p:panel header="Confirmación">
+                <p:panelGrid id="panelDatosConfirmacion" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+                        <p:outputPanel>
+                            <p:outputLabel value="Padrino:" for="padrinoConfirmacion" />
+                            <p:inputText id="padrinoConfirmacion" value="#{FichaController.ficha.padrinoConfirmacion}" title="PadrinoConfirmacion" />
+                            <p:message for="padrinoConfirmacion"/>
+                        </p:outputPanel>
+                        <p:outputPanel>
+                            <p:outputLabel value="Estado Civil:" for="idEstadoCivilPadrino" />
+                            <p:selectOneMenu id="idEstadoCivilPadrino" value="#{FichaController.ficha.idEstadoCivilPadrino}" >
+                                <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
+                            </p:selectOneMenu>
+                            <p:message for="idEstadoCivilPadrino"/>
+                        </p:outputPanel>
+                        <p:outputPanel>
+                            <p:outputLabel value="Madrina:" for="madrinaConfirmacion" />
+                            <p:inputText id="madrinaConfirmacion" value="#{FichaController.ficha.madrinaConfirmacion}" title="MadrinaConfirmacion" />
+                            <p:message for="madrinaConfirmacion"/>
+                        </p:outputPanel>
+                        <p:outputPanel>
+                            <p:outputLabel value="Estado Civil:" for="idEstadoCivilMadrina" />
+                            <p:selectOneMenu id="idEstadoCivilMadrina" value="#{FichaController.ficha.idEstadoCivilMadrina}" >
+                                <f:selectItems value="#{SubTipoController.subTipoEstadoCivilSet}"/>
+                            </p:selectOneMenu>
+                            <p:message for="idEstadoCivilMadrina"/>
+                        </p:outputPanel>
                     </p:panelGrid>
-                </p:tab>
-            </p:tabView>
+                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                        <p:outputLabel value="Fecha Retiro:" for="fechaRetiro" />
+                        <p:inputText disabled="true" id="fechaRetiro" value="#{FichaController.ficha.fechaRetiro}" title="Fechas del Retiro" required="true" requiredMessage="#{bundle.Requerido}" />
+                        <p:message for="fechaRetiro"/>
+                        <p:outputLabel value="Obispo Celebrante:" for="obispoCelebrante" />
+                        <p:inputText disabled="true" id="obispoCelebrante" value="#{FichaController.ficha.obispoCelebrante}" title="ObispoCelebrante" required="true" requiredMessage="#{bundle.Requerido}" />
+                        <p:message for="obispoCelebrante"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+            </p:panel>
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{FichaController.doGuardar()}"/>
+                <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="/pages/ListarFicha"/>
+            </p:panelGrid>
         </h:form>
-    </ui:define>
+    </ui:define>Parroquia
     <ui:define name="ajax">
         <ui:include src="/ajax.xhtml"/>
     </ui:define>
-
 </ui:composition>
