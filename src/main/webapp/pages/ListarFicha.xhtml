@@ -39,6 +39,7 @@
                     <f:facet name="header">
                         <h:outputText value="Formación Reciente" />
                     </f:facet>
+                    <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().idNivel.toString()}"/><br/>
                     <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla} - #{item.ultimaFormacionCristiana().idCapilla.idZona}"/>
                 </p:column>
                 <p:column>
@@ -50,6 +51,8 @@
                         <p:menuitem ajax="false" value="#{bundle.EliminarBoton}" action="#{FichaController.doBorrar(item.idFicha)}" icon="ui-icon-close">
                             <p:confirm header="Confirmación" message="#{bundle.ConfirmacionMensaje}" icon="ui-icon-alert" />
                         </p:menuitem>
+                        <p:separator/>
+                        <p:menuitem target="_blank" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(item.idFicha)}" icon="fa fa-download" />
                     </p:menuButton>
                 </p:column>
             </p:dataTable>

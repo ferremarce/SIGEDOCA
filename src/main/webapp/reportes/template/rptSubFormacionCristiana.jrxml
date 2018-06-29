@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptSubFormacionCristiana" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5f62539-30b2-44eb-9421-1c4c22b6fecb">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="idFicha" class="catequesis.modelo.Ficha">
+		<fieldDescription><![CDATA[idFicha]]></fieldDescription>
+	</field>
+	<field name="informacionParroquia" class="java.lang.String">
+		<fieldDescription><![CDATA[informacionParroquia]]></fieldDescription>
+	</field>
+	<field name="responsable" class="java.lang.String">
+		<fieldDescription><![CDATA[responsable]]></fieldDescription>
+	</field>
+	<field name="idCapilla" class="catequesis.modelo.Capilla">
+		<fieldDescription><![CDATA[idCapilla]]></fieldDescription>
+	</field>
+	<field name="idFormacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idFormacion]]></fieldDescription>
+	</field>
+	<field name="idNivel" class="catequesis.modelo.NivelCatequesis">
+		<fieldDescription><![CDATA[idNivel]]></fieldDescription>
+	</field>
+	<field name="observaciones" class="java.lang.String">
+		<fieldDescription><![CDATA[observaciones]]></fieldDescription>
+	</field>
+	<field name="anho" class="java.lang.Integer">
+		<fieldDescription><![CDATA[anho]]></fieldDescription>
+	</field>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="-2" y="0" width="100" height="30" uuid="15e8b5f2-27b8-4fca-970a-06cf556a6961">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b00c08e-86c6-49c9-86bb-519eab7c224c"/>
+				</reportElement>
+				<text><![CDATA[idFicha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="95" y="0" width="100" height="30" uuid="133ba77f-d49c-41cc-b2fa-f7ab040a7b8e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e04533b-73c1-439e-b94d-91d98e55069d"/>
+				</reportElement>
+				<text><![CDATA[idFormacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="0" width="100" height="30" uuid="d84719c0-983b-4864-9792-4b47eea525f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4229a804-05c9-4294-99eb-8aed8d3a1331"/>
+				</reportElement>
+				<text><![CDATA[anho]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="296" y="0" width="100" height="30" uuid="17a1e668-f95f-4c52-a332-dd5185a88a39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="652af651-cd33-4c91-bc49-439cf4319e37"/>
+				</reportElement>
+				<text><![CDATA[idCapilla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="100" height="30" uuid="ac9f4188-4131-4716-987b-568549b39dbf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="130bb021-be15-40cd-9981-a12fecd3d825"/>
+				</reportElement>
+				<text><![CDATA[observaciones]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="-2" y="0" width="100" height="30" uuid="76b4a8cc-7b68-46f8-9ec8-37e07bc24dcf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1b00c08e-86c6-49c9-86bb-519eab7c224c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idFicha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="95" y="0" width="100" height="30" uuid="87753744-903f-4733-98af-352d499c3148">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e04533b-73c1-439e-b94d-91d98e55069d"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idFormacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="0" width="100" height="30" uuid="94a1c707-d0f6-4215-8610-ef0d28b2adc5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4229a804-05c9-4294-99eb-8aed8d3a1331"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{anho}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="0" width="100" height="30" uuid="55205529-fccc-475f-b543-0807021e1c47">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="652af651-cd33-4c91-bc49-439cf4319e37"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{idCapilla}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="100" height="30" uuid="c019c9c2-a61d-4157-8388-4a172a58fdbc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="130bb021-be15-40cd-9981-a12fecd3d825"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{observaciones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
