@@ -12,6 +12,9 @@
     </h:head>
 
     <h:body>
+        <p:panel widgetVar="statusDialog" id="panelLoad" style="position: fixed; left: 50%; top: 40px; z-index: 99;" >
+            <p:graphicImage value="/img/loading2.gif" height="50"/>
+        </p:panel>
         <div class="ui-fluid">
             <p:link href="/">
                 <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
@@ -62,6 +65,9 @@
                 </p:panel>
             </footer>
         </div>
+         <script>
+            document.getElementById('panelLoad').style.display = 'none';
+        </script>
     </h:body>
 
 </html>

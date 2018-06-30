@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import util.JSFutil;
 
 /**
  *
@@ -26,7 +27,7 @@ import java.util.Map;
 @Named(value = "ReporteController")
 @SessionScoped
 public class ReporteController implements Serializable {
-
+    
     @Inject
     FichaFacade fichaFacade;
 
@@ -35,23 +36,34 @@ public class ReporteController implements Serializable {
      */
     public ReporteController() {
     }
-
+    
     public void generarReporte(Integer id) throws IOException {
         JasperManager jm = new JasperManager();
         List<Ficha> lista = new ArrayList<>();
-        lista.add(fichaFacade.find(id));
+        if (id == 0) {
+            lista = fichaFacade.findAll();
+        } else {
+            lista.add(fichaFacade.find(id));
+        }
         
-        //Obtener la ruta del logo para la impresion
-        String pathRoot = jm.getServletContext().getRealPath("/");
-        pathRoot = pathRoot.replace('\\', '/');
-        String imagenSource = pathRoot + "img/logo.jpg";
-        Map<String, Object> params = new HashMap<>();
-        params.put("imagenPath", imagenSource);
-        //params.put("author", JSFutil.);
         String tipoReporte = "PDF";
         String idFuenteReporte = "1";
         FuenteReporte fr = new FuenteReporte(Integer.valueOf(idFuenteReporte));
-        String reportSource = pathRoot + "reportes/template/" + fr.getNombreReporte();
-        jm.generarReporte(params, reportSource, tipoReporte, lista);
+        String reportSource = jm.getPathweb() + "reportes/template/" + fr.getNombreReporte();
+        jm.generarReporte(reportSource, tipoReporte, lista);
+    }
+    
+    public void generarReporteFicha(List<?> dataList) {
+        JasperManager jm = new JasperManager();
+        String tipoReporte = "PDF";
+        String idFuenteReporte = "1";
+        FuenteReporte fr = new FuenteReporte(Integer.valueOf(idFuenteReporte));
+        String reportSource = jm.getPathweb() + "reportes/template/" + fr.getNombreReporte();
+        if (dataList.size() > 0) {
+            jm.generarReporte(reportSource, tipoReporte, dataList);
+        } else {
+            JSFutil.addErrorMessage("No hay datos para generar el reporte");
+        }
+        
     }
 }

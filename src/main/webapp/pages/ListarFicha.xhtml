@@ -12,11 +12,11 @@
     <ui:define name="content">
         <h:form>
             <p:growl life="5000" globalOnly="true" id="messages"/> 
-            <p:panelGrid columns="4" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+            <p:panelGrid columns="5" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
                 <p:inputText id="criterio" value="#{FichaController.criterio}"/>
                 <p:commandButton value="#{bundle.BuscarBoton}" icon="fa fa-search" ajax="true" action="#{FichaController.doBuscar()}" update="@form"/>
                 <p:commandButton immediate="true" value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{FichaController.doCrearForm()}"/>
-                <p:commandButton immediate="true" value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{FichaController.doRefrescar()}"/>
+                <p:commandButton onclick="PF('statusDialog').show();" immediate="true" value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{FichaController.doRefrescar()}"/>
             </p:panelGrid>
             <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtFicha" var="item" value="#{FichaController.listaFicha}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
                          rows="50"
@@ -26,7 +26,10 @@
                          rowsPerPageTemplate="5,10,25,50,100"
                          >
                 <f:facet name="header">
-                    Tabla de Datos
+                    <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-2">
+                    <h:outputText value="Tabla de Datos"/>
+                    <p:commandButton rendered="#{FichaController.listaFicha.size()>0}" onclick="this.form.target = '_blank'" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporteFicha(FichaController.listaFicha)}" icon="fa fa-download" />
+                    </p:panelGrid>
                 </f:facet>                
                 <p:column>
                     <f:facet name="header">
@@ -52,7 +55,7 @@
                             <p:confirm header="Confirmación" message="#{bundle.ConfirmacionMensaje}" icon="ui-icon-alert" />
                         </p:menuitem>
                         <p:separator/>
-                        <p:menuitem target="_blank" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(item.idFicha)}" icon="fa fa-download" />
+                        <p:menuitem  target="_blank" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(item.idFicha)}" icon="fa fa-download" />
                     </p:menuButton>
                 </p:column>
             </p:dataTable>

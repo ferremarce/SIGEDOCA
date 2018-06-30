@@ -7,6 +7,7 @@ package catequesis.reportes;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -33,38 +34,52 @@ import util.JSFutil;
 public class JasperManager {
 
     String userHome;
+    private String pathweb;
     private final HttpServletResponse response;
     private final FacesContext context;
     private ByteArrayOutputStream baos;
-    private InputStream stream;
-    private ServletContext servletContext;
-    private HttpServletRequest request;
-    private String tituloReporte = "Parroquia Santuario Nuestra Señora del Rosario";
-    private String subTituloReporte = "Pastoral de Catequesis";
+    //private InputStream stream;
+    private final ServletContext servletContext;
+    //private HttpServletRequest request;
+    private final String tituloReporte = "Parroquia Santuario Nuestra Señora del Rosario";
+    private final String subTituloReporte = "Pastoral de Catequesis";
+    Map<String, Object> params;
 
     public JasperManager() {
         this.context = FacesContext.getCurrentInstance();
         this.response = (HttpServletResponse) context.getExternalContext().getResponse();
         servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         userHome = System.getProperty("user.home");
-        //System.out.println("dir-----" + userHome);
-
+        pathweb = servletContext.getRealPath("/");
+        pathweb = pathweb.replace('\\', '/');
+        String imagenSource = pathweb + "img/logo.jpg";
+        params = new HashMap<>();
+        params.put("imagenPath", imagenSource);
+        params.put("tituloReporte", this.tituloReporte);
+        params.put("subTituloReporte", this.subTituloReporte);
+        //params.put("author", JSFutil.);
     }
 
-    public ServletContext getServletContext() {
-        return servletContext;
+    public String getPathweb() {
+        return pathweb;
     }
 
-    public void setServletContext(ServletContext servletContext) {
-        this.servletContext = servletContext;
+    public void setPathweb(String pathweb) {
+        this.pathweb = pathweb;
     }
 
-    public void generarReporte(Map params, String reportSource, String tipoReporte, List<?> dataList) {
+    public Map<String, Object> getParams() {
+        return params;
+    }
+
+    public void setParams(Map<String, Object> params) {
+        this.params = params;
+    }
+
+    public void generarReporte(String reportSource, String tipoReporte, List<?> dataList) {
         try {
             params.put(JRParameter.REPORT_LOCALE, JSFutil.getmyLocale());
             params.put(JRParameter.REPORT_TIME_ZONE, JSFutil.getMyTimeZone());
-            params.put("tituloReporte", this.tituloReporte);
-            params.put("subTituloReporte", this.subTituloReporte);
             JasperReport report = JasperCompileManager.compileReport(reportSource);
             baos = new ByteArrayOutputStream();
 

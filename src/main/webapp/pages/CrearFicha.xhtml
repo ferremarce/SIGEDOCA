@@ -158,9 +158,10 @@
                     </p:panelGrid>
                 </p:panelGrid>
             </p:panel>
-            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+            <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
                 <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{FichaController.doGuardar()}"/>
                 <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="/pages/ListarFicha"/>
+                <p:commandButton onclick="windows.form.target='_blank'"  ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(FichaController.ficha.idFicha)}" icon="fa fa-download" />
             </p:panelGrid>
         </h:form>
     </ui:define>Parroquia
