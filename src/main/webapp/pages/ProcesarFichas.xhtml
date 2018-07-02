@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="title">
+        <h1>Procesar Fichas de Inscripción</h1>
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <p:growl life="5000" globalOnly="true" id="messages"/> 
+            <p:panel header="Datos de Proceso">
+                <p:panelGrid  columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                    <p:outputLabel value="Diócesis:" for="idDiocesis" />
+                    <p:selectOneMenu id="idDiocesis" value="#{CapillaController.tmpIdDiocesis}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{DiocesisController.diocesisSet}"/>
+                        <p:ajax event="change" update="@form"/>
+                    </p:selectOneMenu>
+                    <p:message for="idDiocesis"/>
+                    <p:outputLabel value="Parroquia:" for="idParroquia" />
+                    <p:selectOneMenu id="idParroquia" value="#{CapillaController.tmpParroquia}" required="true" requiredMessage="#{bundle.Requerido}">  
+                        <f:selectItems value="#{ParroquiaController.parroquiaSet(CapillaController.tmpIdDiocesis.idDiocesis)}"/>
+                        <p:ajax event="change" update="@form"/>
+                    </p:selectOneMenu>
+                    <p:message for="idParroquia"/>
+                    <p:outputLabel value="Capilla" for="capillaProceso"/>
+                    <p:autoComplete id="capillaProceso" dropdown="false" value="#{FichaController.capillaProceso}" completeMethod="#{CapillaController.listaAutocompleteCapillaParroquia}"
+                                    var="capilla" itemLabel="#{capilla.toString()}" itemValue="#{capilla}" forceSelection="true" required="true" requiredMessage="#{bundle.Requerido}" />
+                    <p:message for="capillaProceso"/>
+                    <p:outputLabel value="Año para Inscribir" for="anhoProceso"/>
+                    <p:inputNumber id="anhoProceso" value="#{FichaController.anhoProceso}" decimalPlaces="0" required="true" requiredMessage="#{bundle.Requerido}">
+                        <f:convertNumber locale="es_PY" groupingUsed="false"/>
+                    </p:inputNumber>
+                    <p:message for="anhoProceso"/>
+                    <p:outputLabel value="Inscribir en" for="etapaFormacion"/>
+                    <p:selectOneMenu id="etapaFormacion" value="#{FichaController.nivelCatequesis}" required="true" requiredMessage="#{bundle.Requerido}">
+                        <f:selectItems value="#{NivelCatequesisController.nivelCatequesisSet}"/>
+                    </p:selectOneMenu>
+                </p:panelGrid>
+                <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                    <p:commandButton onclick="PF('statusDialog').show();" value="#{bundle.AceptarBoton}" icon="fa fa-check" ajax="false" action="#{FichaController.doRefrescar()}"/>
+                </p:panelGrid>
+                <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtFicha" var="item" value="#{FichaController.listaFicha}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
+                             rows="50"
+                             paginator="true"
+                             filterEvent="enter"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,25,50,100"
+                             >
+                    <f:facet name="header">
+                        <h:outputText value="Tabla de Datos"/>
+                    </f:facet>                
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombres y Apellidos" title="Click para ordenar..."/>
+                        </f:facet>
+                        <h:outputText value="#{index+1}. #{item.toString()}"/>
+                        <h:outputText value="#{item.ci}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Formación Reciente" />
+                        </f:facet>
+                        <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().idNivel.toString()}"/><br/>
+                        <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla} - #{item.ultimaFormacionCristiana().idCapilla.idZona}"/>
+                    </p:column>
+                </p:dataTable>
+                <f:facet name="footer">
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank" >
+                        <p:commandButton rendered="#{FichaController.listaFicha.size()>0}" ajax="true" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{DetalleCapillaController.doUpdate()}" update="@form" />
+                    </p:panelGrid>
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

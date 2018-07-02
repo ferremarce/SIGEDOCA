@@ -16,7 +16,7 @@
                     <p:inputNumber disabled="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" id="anho" value="#{DetalleCapillaController.anho}" decimalPlaces="0" required="true" requiredMessage="#{bundle.Requerido}">
                         <f:convertNumber locale="es_PY" groupingUsed="false"/>
                     </p:inputNumber>
-                    <p:commandButton disabled="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" ajax="true" icon="fa fa-chevron-circle-right" value="#{bundle.ProcesarBoton}" action="#{DetalleCapillaController.doProcesarAnho()}" update="@form" />
+                    <p:commandButton disabled="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" ajax="true" icon="fa fa-check" value="#{bundle.AceptarBoton}" action="#{DetalleCapillaController.doProcesarAnho()}" update="@form" />
                 </p:panelGrid>
                 <p/>
                 <p:panelGrid rendered="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-9">
@@ -35,7 +35,7 @@
                     <p:outputLabel value="Celebrante de Confirmación:" for="celebranteConfirmacion" />
                     <p:inputText id="celebranteConfirmacion" value="#{DetalleCapillaController.celebranteConfirmacion}"/>
                 </p:panelGrid>
-                <p:dataTable reflow="true" value="#{DetalleCapillaController.listaDatelleCapilla}" rowIndexVar="index" rowKey="#{item.idCapilla.idCapilla}" var="item" selectionMode="multiple" selection="#{DetalleCapillaController.selectedDatelleCapilla}">
+                <p:dataTable rendered="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" reflow="true" value="#{DetalleCapillaController.listaDatelleCapilla}" rowIndexVar="index" rowKey="#{item.idCapilla.idCapilla}" var="item" selectionMode="multiple" selection="#{DetalleCapillaController.selectedDatelleCapilla}">
                     <p:column width="20">
                         <f:facet name="header">
                             <h:outputText value="#"/>
@@ -94,7 +94,7 @@
                 </p:dataTable>
                 <f:facet name="footer">
                     <p:panelGrid columns="1" styleClass="ui-panelgrid-blank" >
-                        <p:commandButton rendered="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" ajax="true" value="#{bundle.ActualizarBoton}" icon="fa fa-save" action="#{DetalleCapillaController.doUpdate()}" update="@form" />
+                        <p:commandButton rendered="#{DetalleCapillaController.listaDatelleCapilla.size()>0}" ajax="true" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{DetalleCapillaController.doUpdate()}" update="@form" />
                     </p:panelGrid>
                 </f:facet>
             </p:panel>

@@ -8,6 +8,7 @@ package catequesis.controller;
 import catequesis.fachada.CapillaFacade;
 import catequesis.modelo.Capilla;
 import catequesis.modelo.Diocesis;
+import catequesis.modelo.Parroquia;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -38,12 +39,21 @@ public class CapillaController implements Serializable {
     private Capilla capilla;
     private List<Capilla> listaCapilla;
     private Diocesis tmpIdDiocesis;
+    private Parroquia tmpParroquia;
     private String criterio;
 
     /**
      * Creates a new instance of CapillaController
      */
     public CapillaController() {
+    }
+
+    public Parroquia getTmpParroquia() {
+        return tmpParroquia;
+    }
+
+    public void setTmpParroquia(Parroquia tmpParroquia) {
+        this.tmpParroquia = tmpParroquia;
     }
 
     public String getCriterio() {
@@ -171,6 +181,10 @@ public class CapillaController implements Serializable {
 
     public List<Capilla> listaAutocompleteCapilla(String valor) {
         return capillaFacade.getAllCapilla(valor);
+    }
+
+    public List<Capilla> listaAutocompleteCapillaParroquia(String valor) {
+        return capillaFacade.getAllCapilla(valor, this.tmpParroquia.getIdParroquia());
     }
 
 }

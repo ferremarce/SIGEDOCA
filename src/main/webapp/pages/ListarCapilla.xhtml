@@ -28,10 +28,16 @@
                          >
                 <f:facet name="header">
                     Tabla de Datos
-                </f:facet>                
+                </f:facet>  
                 <p:column>
                     <f:facet name="header">
-                        <h:outputText value="Capilla" title="Click para ordenar..."/>
+                        <h:outputText value="Parroquia"/>
+                    </f:facet>
+                    <h:outputText styleClass="Leaden fontBold" value="#{item.idParroquia.toString()}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Capilla"/>
                     </f:facet>
                     <h:outputText styleClass="Brown fontBold" value="#{index+1}. #{item.nombre}"/>
                 </p:column>

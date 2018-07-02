@@ -38,5 +38,13 @@ public class CapillaFacade extends AbstractFacade<Capilla> {
         return tr;
 
     }
+    public List<Capilla> getAllCapilla(String nombre, Integer idParroquia) {
+        Query q = em.createQuery("SELECT a FROM Capilla a WHERE a.nombre LIKE :xNombre AND a.idParroquia.idParroquia=:xIdParroquia ORDER BY a.idZona.idSubTipo, a.nombre");
+        q.setParameter("xNombre", "%" + nombre + "%");
+        q.setParameter("xIdParroquia", idParroquia);
+        List<Capilla> tr = q.getResultList();
+        return tr;
+
+    }
 
 }

@@ -7,11 +7,14 @@ package catequesis.controller;
 
 import catequesis.fachada.FichaFacade;
 import catequesis.fachada.FormacionCristianaFacade;
+import catequesis.modelo.Capilla;
 import catequesis.modelo.Ficha;
 import catequesis.modelo.FormacionCristiana;
+import catequesis.modelo.NivelCatequesis;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -42,11 +45,38 @@ public class FichaController implements Serializable {
     private List<Ficha> listaFicha;
     private List<FormacionCristiana> listaFormacionCristiana;
     private String criterio;
+    private Integer anhoProceso;
+    private Capilla capillaProceso;
+    private NivelCatequesis nivelCatequesis;
 
     /**
      * Creates a new instance of FichaController
      */
     public FichaController() {
+    }
+
+    public Integer getAnhoProceso() {
+        return anhoProceso;
+    }
+
+    public void setAnhoProceso(Integer anhoProceso) {
+        this.anhoProceso = anhoProceso;
+    }
+
+    public Capilla getCapillaProceso() {
+        return capillaProceso;
+    }
+
+    public void setCapillaProceso(Capilla capillaProceso) {
+        this.capillaProceso = capillaProceso;
+    }
+
+    public NivelCatequesis getNivelCatequesis() {
+        return nivelCatequesis;
+    }
+
+    public void setNivelCatequesis(NivelCatequesis nivelCatequesis) {
+        this.nivelCatequesis = nivelCatequesis;
     }
 
     public String getCriterio() {
@@ -86,6 +116,14 @@ public class FichaController implements Serializable {
             this.listaFicha = new ArrayList<>();
         }
         return "/pages/ListarFicha";
+    }
+
+    public String doProcesarForm() {
+        this.listaFicha = new ArrayList<>();
+        this.anhoProceso = Year.now().getValue();
+        this.capillaProceso=null;
+        this.nivelCatequesis=null;
+        return "/pages/ProcesarFichas";
     }
 
     public String doCrearForm() {
