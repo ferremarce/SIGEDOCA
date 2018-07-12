@@ -7,6 +7,7 @@ package catequesis.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 import org.eclipse.persistence.annotations.Index;
 
@@ -34,6 +35,9 @@ import org.eclipse.persistence.annotations.Index;
 @NamedQueries({
     @NamedQuery(name = "DetalleCapilla.findAll", query = "SELECT d FROM DetalleCapilla d")})
 public class DetalleCapilla implements Serializable {
+
+    @OneToMany(mappedBy = "idDetalleCapilla")
+    private List<Ficha> fichaList;
 
     @Column(name = "fecha_sacramento_confesion")
     @Temporal(TemporalType.DATE)
@@ -192,7 +196,7 @@ public class DetalleCapilla implements Serializable {
 
     @Override
     public String toString() {
-        return "catequesis.modelo.DetalleCapilla[ idDetalleCapilla=" + idDetalleCapilla + " ]";
+        return this.anho+" "+this.fechaSacramentoConfirmacion;
     }
 
     public Date getFechaSacramentoConfesion() {
@@ -201,6 +205,14 @@ public class DetalleCapilla implements Serializable {
 
     public void setFechaSacramentoConfesion(Date fechaSacramentoConfesion) {
         this.fechaSacramentoConfesion = fechaSacramentoConfesion;
+    }
+
+    public List<Ficha> getFichaList() {
+        return fichaList;
+    }
+
+    public void setFichaList(List<Ficha> fichaList) {
+        this.fichaList = fichaList;
     }
 
 }

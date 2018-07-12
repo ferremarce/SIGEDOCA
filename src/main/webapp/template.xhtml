@@ -27,18 +27,18 @@
             </p:link>
             <h:form>
                 <p:menubar>
-                    <p:submenu label="Administración" icon="ui-icon-gear">
+                    <p:submenu label="&nbsp;Mantenimiento" icon="fa fa-book">
+                        <p:menuitem ajax="false" value="Diócesis" action="#{DiocesisController.doListaForm()}"/>
+                        <p:menuitem ajax="false" value="Parroquias" action="#{ParroquiaController.doListaForm()}"/>
                         <p:menuitem ajax="false" value="Capillas" action="#{CapillaController.doListaForm()}"/>
+                        <p:separator/>
                         <p:menuitem ajax="false" value="Fichas de Inscripción" action="#{FichaController.doListaForm()}"/>
                     </p:submenu>
-                    <p:submenu label="Procesos" icon="fa fa-cogs">
+                    <p:submenu label="&nbsp;Procesos" icon="fa fa-cogs">
                         <p:menuitem ajax="false" value="Calendario de Capillas" action="#{DetalleCapillaController.doCrearForm()}"/>
                         <p:menuitem ajax="false" value="Inscripciones" action="#{FichaController.doProcesarForm()}"/>
                     </p:submenu>
-                    <p:submenu label="Configuración" icon="ui-icon-document">
-                        <p:menuitem ajax="false" value="Diócesis" action="#{DiocesisController.doListaForm()}"/>
-                        <p:menuitem ajax="false" value="Parroquia" action="#{ParroquiaController.doListaForm()}"/>
-                        <p:separator/>
+                    <p:submenu label="&nbsp;Configuración" icon="ui-icon-document">
                         <p:menuitem ajax="false" value="SubTipos" action="#{SubTipoController.doListaForm()}"/>
                         <p:menuitem ajax="false" value="Parámetros" action="#{PropiedadController.editarParametroForm()}"/>
                         <p:menuitem ajax="false" value="Jerarquías" action="#{TipoTreeController.doTipoTreeForm()}"/>
@@ -50,10 +50,10 @@
             <ui:insert name="ajax">
                 <ui:include src="/ajax.xhtml"/>
             </ui:insert>
-            <ui:insert name="content">
-            </ui:insert>
             <ui:insert name="dialogConfirm">
                 <ui:include src="/dialogConfirm.xhtml"/>
+            </ui:insert>
+            <ui:insert name="content">
             </ui:insert>
             <footer>
                 <p:panel>
@@ -68,7 +68,7 @@
                 </p:panel>
             </footer>
         </div>
-         <script>
+        <script>
             document.getElementById('panelLoad').style.display = 'none';
         </script>
     </h:body>

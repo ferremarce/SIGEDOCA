@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJBException;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import util.JSFutil;
 
@@ -55,6 +56,14 @@ public class DetalleCapillaController implements Serializable {
      * Creates a new instance of DetalleCapillaController
      */
     public DetalleCapillaController() {
+    }
+
+    public DetalleCapillaFacade getDetalleCapillaFacade() {
+        return detalleCapillaFacade;
+    }
+
+    public void setDetalleCapillaFacade(DetalleCapillaFacade detalleCapillaFacade) {
+        this.detalleCapillaFacade = detalleCapillaFacade;
     }
 
     public List<DetalleCapilla> getSelectedDatelleCapilla() {
@@ -176,7 +185,7 @@ public class DetalleCapillaController implements Serializable {
                 this.listaDatelleCapilla.add(det);
             }
         }
-        JSFutil.addSuccessMessage("Se han recuperado "+this.listaDatelleCapilla.size()+" Capillas");
+        JSFutil.addSuccessMessage("Se han recuperado " + this.listaDatelleCapilla.size() + " Capillas");
     }
 
     public void doUpdate() {
@@ -226,7 +235,7 @@ public class DetalleCapillaController implements Serializable {
                 LOG.log(Level.SEVERE, null, ex);
             }
         }
-        JSFutil.addSuccessMessage(this.bundle.getString("UpdateSuccess")+". Se han actualizado: "+this.selectedDatelleCapilla.size());
+        JSFutil.addSuccessMessage(this.bundle.getString("UpdateSuccess") + ". Se han actualizado: " + this.selectedDatelleCapilla.size());
         this.selectedDatelleCapilla = new ArrayList<>();
         this.doProcesarAnho();
         this.limpiarCampos();

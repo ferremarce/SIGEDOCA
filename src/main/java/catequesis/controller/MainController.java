@@ -40,4 +40,8 @@ public class MainController implements Serializable {
     public Locale getMyLocale() {
         return JSFutil.getmyLocale();
     }
+
+    public void sampleConsola() {
+        System.out.println("-- Se ha procesado en el server ----");
+    }
 }

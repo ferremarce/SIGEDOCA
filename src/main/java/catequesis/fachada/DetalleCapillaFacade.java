@@ -38,10 +38,10 @@ public class DetalleCapillaFacade extends AbstractFacade<DetalleCapilla> {
     }
 
     public List<DetalleCapilla> getDetalleCapilla(Integer anho) {
-        String sql = "SELECT a FROM DetalleCapilla a WHERE a.anho=:xAnho";
+        String sql = "SELECT a FROM DetalleCapilla a WHERE a.anho=:xAnho ORDER BY a.anho DESC";
         Query q = em.createQuery(sql);
         q.setParameter("xAnho", anho);
-        LOG.log(Level.INFO, "findAllbyDiocesis: {0}", sql);
+        LOG.log(Level.INFO, "getDetalleCapilla: {0}", sql);
         List<DetalleCapilla> tr = q.getResultList();
         return tr;
     }

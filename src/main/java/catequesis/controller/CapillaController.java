@@ -148,10 +148,10 @@ public class CapillaController implements Serializable {
         return doListaForm();
     }
 
-    public String doBorrar(Integer id) {
+    public void doBorrar(Integer id) {
         this.capilla = capillaFacade.find(id);
         persist(PersistAction.DELETE);
-        return doListaForm();
+        doListaForm();
     }
 
     private void persist(PersistAction persistAction) {

@@ -40,8 +40,7 @@
                     </f:facet>
                     <p:menuButton value="Opciones">
                         <p:menuitem ajax="false" value="#{bundle.EditarBoton}" action="#{DiocesisController.doEditarForm(item.idDiocesis)}" icon="ui-icon-arrowrefresh-1-w"/>
-                        <p:menuitem ajax="false" value="#{bundle.EliminarBoton}" action="#{DiocesisController.doBorrar(item.idDiocesis)}" icon="ui-icon-close">
-                            <p:confirm header="Confirmación" message="#{bundle.ConfirmacionMensaje}" icon="ui-icon-alert" />
+                        <p:menuitem ajax="false" value="#{bundle.EliminarBoton}" onclick="if(!confirm('#{bundle.ConfirmacionMensaje}')){return false;}" action="#{DiocesisController.doBorrar(item.idDiocesis)}" icon="ui-icon-close">
                         </p:menuitem>
                     </p:menuButton>
                 </p:column>

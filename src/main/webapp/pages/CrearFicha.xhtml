@@ -10,7 +10,7 @@
         <h1>Ficha de Inscripción</h1>
     </ui:define>
     <ui:define name="content">
-        <h:form id="formMain">
+        <h:form id="formMain" target="">
             <p:growl life="5000" globalOnly="true" id="growl1"/> 
             <p:panel header="Datos Personales">
                 <p:panelGrid id="panelDatosPersonales" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
@@ -102,6 +102,7 @@
                     </p:rowExpansion-->
                     <p:column headerText="Nivel">
                         <h:outputText value="#{fc.idNivel} - [#{fc.idNivel.edad} años]" />
+                        <p:commandButton rendered="#{fc.idNivel.idNivel==12 or fc.idNivel.idNivel==13}" value="Hizo su confirmación" action="#{FichaController.doActivarConfirmacion(fc)}" update="@form"/>
                     </p:column>
                     <p:column headerText="Año" width="60">
                         <p:inputNumber id="anhoF" value="#{fc.anho}" decimalPlaces="0">
@@ -122,6 +123,23 @@
             </p:panel>
             <p:panel header="Confirmación">
                 <p:panelGrid id="panelDatosConfirmacion" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+                        <p:outputLabel value="Fecha de Retiro:"/>
+                        <p:panelGrid columns="2">
+                            <h:outputText value="#{FichaController.ficha.idDetalleCapilla.fechaInicioRetiro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                            <h:outputText value="#{FichaController.ficha.idDetalleCapilla.fechaFinRetiro}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:panelGrid>
+                        <p:outputLabel value="Fecha de Confirmación:"/>
+                        <h:outputText value="#{FichaController.ficha.idDetalleCapilla.fechaSacramentoConfirmacion}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <p:outputLabel value="Obispo Celebrante:"/>
+                        <h:outputText value="#{FichaController.ficha.idDetalleCapilla.celebranteConfirmacion}"/>
+                    </p:panelGrid>
                     <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
                         <p:outputPanel>
                             <p:outputLabel value="Padrino:" for="padrinoConfirmacion" />
@@ -148,23 +166,20 @@
                             <p:message for="idEstadoCivilMadrina"/>
                         </p:outputPanel>
                     </p:panelGrid>
-                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
-                        <p:outputLabel value="Fecha Retiro:" for="fechaRetiro" />
-                        <p:inputText disabled="true" id="fechaRetiro" value="#{FichaController.ficha.fechaRetiro}" title="Fechas del Retiro" required="true" requiredMessage="#{bundle.Requerido}" />
-                        <p:message for="fechaRetiro"/>
-                        <p:outputLabel value="Obispo Celebrante:" for="obispoCelebrante" />
-                        <p:inputText disabled="true" id="obispoCelebrante" value="#{FichaController.ficha.obispoCelebrante}" title="ObispoCelebrante" required="true" requiredMessage="#{bundle.Requerido}" />
-                        <p:message for="obispoCelebrante"/>
-                    </p:panelGrid>
                 </p:panelGrid>
             </p:panel>
             <p:panelGrid columns="3" styleClass="ui-panelgrid-blank">
                 <p:commandButton ajax="false" icon="fa fa-save" value="#{bundle.GuardarBoton}" action="#{FichaController.doGuardar()}"/>
                 <p:commandButton immediate="true" ajax="false" icon="fa fa-sign-out" value="#{bundle.CancelarBoton}" action="/pages/ListarFicha"/>
-                <p:commandButton onclick="windows.form.target='_blank'"  ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(FichaController.ficha.idFicha)}" icon="fa fa-download" />
+                <p:commandLink target="_blank" ajax="false"
+                               style="padding: .3em 1em;"
+                               styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c"
+                               action="#{ReporteController.generarReporte(FichaController.ficha.idFicha)}">
+                    <i class="fa fa-download"></i> #{bundle.DescargarBoton}
+                </p:commandLink>
             </p:panelGrid>
         </h:form>
-    </ui:define>Parroquia
+    </ui:define>
     <ui:define name="ajax">
         <ui:include src="/ajax.xhtml"/>
     </ui:define>

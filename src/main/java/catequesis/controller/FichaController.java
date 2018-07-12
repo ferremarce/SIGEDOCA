@@ -7,7 +7,9 @@ package catequesis.controller;
 
 import catequesis.fachada.FichaFacade;
 import catequesis.fachada.FormacionCristianaFacade;
+import catequesis.fachada.NivelCatequesisFacade;
 import catequesis.modelo.Capilla;
+import catequesis.modelo.DetalleCapilla;
 import catequesis.modelo.Ficha;
 import catequesis.modelo.FormacionCristiana;
 import catequesis.modelo.NivelCatequesis;
@@ -40,6 +42,8 @@ public class FichaController implements Serializable {
     FichaFacade fichaFacade;
     @Inject
     FormacionCristianaFacade formacionCristianaFacade;
+    @Inject
+    NivelCatequesisFacade nivelCatequesisFacade;
 
     private Ficha ficha;
     private List<Ficha> listaFicha;
@@ -47,12 +51,30 @@ public class FichaController implements Serializable {
     private String criterio;
     private Integer anhoProceso;
     private Capilla capillaProceso;
-    private NivelCatequesis nivelCatequesis;
+    private NivelCatequesis nivelCatequesisProceso;
+    private List<Ficha> selectedFichaProceso;
+    private Boolean hizoConfirmacion;
 
     /**
      * Creates a new instance of FichaController
      */
     public FichaController() {
+    }
+
+    public Boolean getHizoConfirmacion() {
+        return hizoConfirmacion;
+    }
+
+    public void setHizoConfirmacion(Boolean hizoConfirmacion) {
+        this.hizoConfirmacion = hizoConfirmacion;
+    }
+
+    public List<Ficha> getSelectedFichaProceso() {
+        return selectedFichaProceso;
+    }
+
+    public void setSelectedFichaProceso(List<Ficha> selectedFichaProceso) {
+        this.selectedFichaProceso = selectedFichaProceso;
     }
 
     public Integer getAnhoProceso() {
@@ -71,12 +93,12 @@ public class FichaController implements Serializable {
         this.capillaProceso = capillaProceso;
     }
 
-    public NivelCatequesis getNivelCatequesis() {
-        return nivelCatequesis;
+    public NivelCatequesis getNivelCatequesisProceso() {
+        return nivelCatequesisProceso;
     }
 
-    public void setNivelCatequesis(NivelCatequesis nivelCatequesis) {
-        this.nivelCatequesis = nivelCatequesis;
+    public void setNivelCatequesisProceso(NivelCatequesis nivelCatequesisProceso) {
+        this.nivelCatequesisProceso = nivelCatequesisProceso;
     }
 
     public String getCriterio() {
@@ -121,8 +143,8 @@ public class FichaController implements Serializable {
     public String doProcesarForm() {
         this.listaFicha = new ArrayList<>();
         this.anhoProceso = Year.now().getValue();
-        this.capillaProceso=null;
-        this.nivelCatequesis=null;
+        this.capillaProceso = null;
+        this.nivelCatequesisProceso = null;
         return "/pages/ProcesarFichas";
     }
 
@@ -130,6 +152,7 @@ public class FichaController implements Serializable {
         System.out.println("------" + JSFutil.getmyLocale());
         this.ficha = new Ficha();
         this.listaFormacionCristiana = formacionCristianaFacade.listaFormacionTemplate();
+        this.hizoConfirmacion = Boolean.FALSE;
         return "/pages/CrearFicha";
     }
 
@@ -138,8 +161,8 @@ public class FichaController implements Serializable {
         if (this.ficha.getFormacionCristianaList().isEmpty()) {
             formacionCristianaFacade.createFichaFormacion(this.ficha.getIdFicha());
         }
-        this.ficha = fichaFacade.find(id);
         this.listaFormacionCristiana = fichaFacade.findAllFormacionCristiana(id);
+        this.hizoConfirmacion = Boolean.FALSE;
         return "/pages/CrearFicha";
     }
 
@@ -172,10 +195,16 @@ public class FichaController implements Serializable {
         try {
             if (persistAction.compareTo(PersistAction.CREATE) == 0) {
                 fichaFacade.create(ficha);
+                this.doGuardarFormacionCristiana();
+                this.doEditarForm(this.ficha.getIdFicha());
+
             } else if (persistAction.compareTo(PersistAction.UPDATE) == 0) {
                 fichaFacade.edit(ficha);
+                this.doGuardarFormacionCristiana();
+                this.doEditarForm(this.ficha.getIdFicha());
             } else if (persistAction.compareTo(PersistAction.DELETE) == 0) {
                 fichaFacade.remove(ficha);
+                this.doRefrescar();
             }
             JSFutil.addSuccessMessage(this.bundle.getString("UpdateSuccess"));
         } catch (EJBException ex) {
@@ -193,6 +222,17 @@ public class FichaController implements Serializable {
         }
     }
 
+    private void doGuardarFormacionCristiana() {
+        for (FormacionCristiana fc : this.listaFormacionCristiana) {
+            if (fc.getIdFormacion() == null) {
+                fc.setIdFicha(ficha);
+                formacionCristianaFacade.create(fc);
+            } else {
+                formacionCristianaFacade.edit(fc);
+            }
+        }
+    }
+
     public String doBuscar() {
         if (this.criterio.isEmpty()) {
             JSFutil.addErrorMessage("No hay criterios para buscar...");
@@ -207,4 +247,54 @@ public class FichaController implements Serializable {
         return "";
     }
 
+    public String doRecuperarFichaProceso() throws InterruptedException {
+        Thread.sleep(3000);
+        this.listaFicha = fichaFacade.findAllFichaProceso(anhoProceso, capillaProceso.getIdCapilla(), nivelCatequesisProceso.getIdNivel());
+        if (this.listaFicha.isEmpty()) {
+            JSFutil.addErrorMessage("No hay resultados...");
+        } else {
+            JSFutil.addSuccessMessage(this.listaFicha.size() + " registros recuperados");
+        }
+        this.selectedFichaProceso = null;
+        return "";
+    }
+
+    public NivelCatequesis doNivelAnterior() {
+        Integer id = this.nivelCatequesisProceso.getIdNivel();
+        return nivelCatequesisFacade.find(id - 1);
+    }
+
+    public void doProcesarInscripcion() {
+        if (this.selectedFichaProceso.isEmpty()) {
+            JSFutil.addErrorMessage("Debe seleccionar al menos un elemento de la lista para procesar la inscripción.");
+            return;
+        }
+        for (Ficha f : this.selectedFichaProceso) {
+            for (FormacionCristiana fc : f.getFormacionCristianaList()) {
+                if (fc.getIdNivel().getIdNivel().compareTo(nivelCatequesisProceso.getIdNivel()) == 0) {
+                    fc.setAnho(anhoProceso);
+                    fc.setIdCapilla(capillaProceso);
+                    fc.setIdNivel(nivelCatequesisProceso);
+                    fc.setIdFicha(f);
+                    formacionCristianaFacade.edit(fc);
+                    System.out.println("Actualizado: " + f.getNombres() + " " + f.getApellidos() + " a " + anhoProceso + " " + capillaProceso.getNombre() + " " + nivelCatequesisProceso.getDescripcionNivel());
+                    break;
+                }
+            }
+        }
+        JSFutil.addSuccessMessage(this.bundle.getString("UpdateSuccess"));
+    }
+
+    public void doActivarConfirmacion(FormacionCristiana fc) {
+        if (fc.getAnho()!=null) {
+            for (DetalleCapilla det : fc.getIdCapilla().getDetalleCapillaList()) {
+                if (det.getAnho().compareTo(fc.getAnho()) == 0) {
+                    this.ficha.setIdDetalleCapilla(det);
+                    break;
+                }
+            }
+        } else {
+            ficha.setIdDetalleCapilla(null);
+        }
+    }
 }

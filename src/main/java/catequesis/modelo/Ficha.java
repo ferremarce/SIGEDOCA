@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +36,10 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Ficha.findAll", query = "SELECT f FROM Ficha f")})
 public class Ficha implements Serializable {
+
+    @JoinColumn(name = "id_detalle_capilla", referencedColumnName = "id_detalle_capilla")
+    @ManyToOne
+    private DetalleCapilla idDetalleCapilla;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -89,7 +94,7 @@ public class Ficha implements Serializable {
     @Size(max = 255)
     @Column(name = "observaciones_bautismo")
     private String observacionesBautismo;
-    @OneToMany(mappedBy = "idFicha", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idFicha", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @OrderBy("idNivel ASC")
     private List<FormacionCristiana> formacionCristianaList;
     @Size(max = 255)
@@ -348,5 +353,13 @@ public class Ficha implements Serializable {
 
     public void setIdEstadoCivilMadrina(SubTipo idEstadoCivilMadrina) {
         this.idEstadoCivilMadrina = idEstadoCivilMadrina;
+    }
+
+    public DetalleCapilla getIdDetalleCapilla() {
+        return idDetalleCapilla;
+    }
+
+    public void setIdDetalleCapilla(DetalleCapilla idDetalleCapilla) {
+        this.idDetalleCapilla = idDetalleCapilla;
     }
 }

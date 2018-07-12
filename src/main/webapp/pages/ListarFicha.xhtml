@@ -27,8 +27,14 @@
                          >
                 <f:facet name="header">
                     <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-2">
-                    <h:outputText value="Tabla de Datos"/>
-                    <p:commandButton rendered="#{FichaController.listaFicha.size()>0}" onclick="this.form.target = '_blank'" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporteFicha(FichaController.listaFicha)}" icon="fa fa-download" />
+                        <h:outputText value="Tabla de Datos"/>
+                        <p:commandLink target="_blank" ajax="false"
+                                       rendered="#{FichaController.listaFicha.size()>0}"
+                                       style="padding: .3em 1em;"
+                                       styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c"
+                                       action="#{ReporteController.generarReporteFicha(FichaController.listaFicha)}">
+                            <i class="fa fa-download"></i> #{bundle.DescargarBoton}
+                        </p:commandLink>
                     </p:panelGrid>
                 </f:facet>                
                 <p:column>
@@ -51,9 +57,7 @@
                     </f:facet>
                     <p:menuButton value="Opciones">
                         <p:menuitem ajax="false" value="#{bundle.EditarBoton}" action="#{FichaController.doEditarForm(item.idFicha)}" icon="ui-icon-arrowrefresh-1-w"/>
-                        <p:menuitem ajax="false" value="#{bundle.EliminarBoton}" action="#{FichaController.doBorrar(item.idFicha)}" icon="ui-icon-close">
-                            <p:confirm header="Confirmación" message="#{bundle.ConfirmacionMensaje}" icon="ui-icon-alert" />
-                        </p:menuitem>
+                        <p:menuitem ajax="false" onclick="if(!confirm('#{bundle.ConfirmacionMensaje}')){return false;}" value="#{bundle.EliminarBoton}" action="#{FichaController.doBorrar(item.idFicha)}" icon="ui-icon-close"/>
                         <p:separator/>
                         <p:menuitem  target="_blank" ajax="false" value="#{bundle.DescargarBoton}" action="#{ReporteController.generarReporte(item.idFicha)}" icon="fa fa-download" />
                     </p:menuButton>

@@ -10,7 +10,7 @@
         <h1>Procesar Fichas de Inscripción</h1>
     </ui:define>
     <ui:define name="content">
-        <h:form>
+        <h:form id="formMain">
             <p:growl life="5000" globalOnly="true" id="messages"/> 
             <p:panel header="Datos de Proceso">
                 <p:panelGrid  columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
@@ -36,41 +36,75 @@
                     </p:inputNumber>
                     <p:message for="anhoProceso"/>
                     <p:outputLabel value="Inscribir en" for="etapaFormacion"/>
-                    <p:selectOneMenu id="etapaFormacion" value="#{FichaController.nivelCatequesis}" required="true" requiredMessage="#{bundle.Requerido}">
+                    <p:selectOneMenu id="etapaFormacion" value="#{FichaController.nivelCatequesisProceso}" required="true" requiredMessage="#{bundle.Requerido}">
                         <f:selectItems value="#{NivelCatequesisController.nivelCatequesisSet}"/>
                     </p:selectOneMenu>
                 </p:panelGrid>
                 <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
-                    <p:commandButton onclick="PF('statusDialog').show();" value="#{bundle.AceptarBoton}" icon="fa fa-check" ajax="false" action="#{FichaController.doRefrescar()}"/>
+                    <p:commandButton onclick="PF('statusDialog').show();" value="#{bundle.AceptarBoton}" icon="fa fa-check" ajax="false" action="#{FichaController.doRecuperarFichaProceso()}"/>
                 </p:panelGrid>
-                <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtFicha" var="item" value="#{FichaController.listaFicha}" reflow="true" emptyMessage="#{bundle.SinRegistrosMensaje}"
-                             rows="50"
-                             paginator="true"
-                             filterEvent="enter"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,25,50,100"
-                             >
+                <p:dataTable  rowIndexVar="index" id="dataTable" widgetVar="dtFicha" var="item" value="#{FichaController.listaFicha}" reflow="true"  rowKey="#{item.idFicha}" selection="#{FichaController.selectedFichaProceso}" emptyMessage="#{bundle.SinRegistrosMensaje}"
+                              rows="50"
+                              paginator="true"
+                              filterEvent="enter"
+                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                              >
                     <f:facet name="header">
-                        <h:outputText value="Tabla de Datos"/>
-                    </f:facet>                
-                    <p:column>
+                        <h:outputText rendered="#{FichaController.listaFicha.size()>0}" styleClass="font2x fontBold" value="#{FichaController.listaFicha.size()} fichas del #{FichaController.anhoProceso-1} de #{FichaController.doNivelAnterior().toString()}"/>
+                    </f:facet>      
+                    <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    <p:column sortBy="#{item.apellidos}">
                         <f:facet name="header">
-                            <h:outputText value="Nombres y Apellidos" title="Click para ordenar..."/>
+                            <h:outputText value="Apellidos" title="Click para ordenar..."/>
                         </f:facet>
-                        <h:outputText value="#{index+1}. #{item.toString()}"/>
-                        <h:outputText value="#{item.ci}"/>
+                        <h:outputText value="#{index+1}. #{item.apellidos}"/>
+                    </p:column>
+                    <p:column sortBy="#{item.nombres}">
+                        <f:facet name="header">
+                            <h:outputText value="Nombres" title="Click para ordenar..."/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombres}"/>
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="Formación Reciente" />
+                            <h:outputText value="Nivel de Catequesis" />
                         </f:facet>
-                        <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().idNivel.toString()}"/><br/>
-                        <h:outputText rendered="#{item.ultimaFormacionCristiana()!=null}" value="#{item.ultimaFormacionCristiana().anho} en #{item.ultimaFormacionCristiana().idCapilla} - #{item.ultimaFormacionCristiana().idCapilla.idZona}"/>
+                        <h:outputText value="#{item.ultimaFormacionCristiana().idNivel.toString()}"/><br/>
+                    </p:column>
+                    <p:column style="width: 50px">
+                        <f:facet name="header">
+                            <h:outputText value="Año" />
+                        </f:facet>
+                        <h:outputText value="#{item.ultimaFormacionCristiana().anho}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Capilla" />
+                        </f:facet>
+                        <h:outputText value="#{item.ultimaFormacionCristiana().idCapilla} - #{item.ultimaFormacionCristiana().idCapilla.idZona}"/>
+                    </p:column>
+                    <p:column width="100">
+                        <f:facet name="header">
+                            <h:outputText value="Acción" />
+                        </f:facet>
+                        <p:commandButton icon="ui-icon-arrowrefresh-1-w" ajax="false" value="#{bundle.EditarBoton}" action="#{FichaController.doEditarForm(item.idFicha)}" />
                     </p:column>
                 </p:dataTable>
+                <p/>
+                <p:panelGrid rendered="#{FichaController.listaFicha.size()>0}" columns="2" >
+                    <f:facet name="header">
+                        <h:outputText styleClass="font1x fontBold" value="Datos para la inscripción automática"/>
+                    </f:facet>
+                    <p:outputLabel value="Año:"/>
+                    <h:outputText value="#{FichaController.anhoProceso}"/>
+                    <p:outputLabel value="Etapa:"/>
+                    <h:outputText value="#{FichaController.nivelCatequesisProceso.toString()}"/>
+                    <p:outputLabel value="Capilla:"/>
+                    <h:outputText value="#{FichaController.capillaProceso.toString()}"/>
+                </p:panelGrid>
                 <f:facet name="footer">
-                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank" >
-                        <p:commandButton rendered="#{FichaController.listaFicha.size()>0}" ajax="true" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{DetalleCapillaController.doUpdate()}" update="@form" />
+                    <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
+                        <p:commandButton disabled="#{FichaController.listaFicha.size()==0}" ajax="false" onclick="if(!confirm('#{bundle.ConfirmacionMensaje}')){return false;}" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{FichaController.doProcesarInscripcion()}" />
                     </p:panelGrid>
                 </f:facet>
             </p:panel>

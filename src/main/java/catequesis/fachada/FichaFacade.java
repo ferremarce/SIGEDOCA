@@ -5,7 +5,6 @@
  */
 package catequesis.fachada;
 
-import catequesis.controller.FichaController;
 import catequesis.modelo.Ficha;
 import catequesis.modelo.FormacionCristiana;
 import java.util.List;
@@ -49,7 +48,18 @@ public class FichaFacade extends AbstractFacade<Ficha> {
     public List<Ficha> findAllFicha(String criterio) {
         String sql = "SELECT a FROM Ficha a WHERE CONCAT(a.nombres,' ',a.apellidos) LIKE :xCriterio ORDER BY a.apellidos, a.nombres";
         Query q = em.createQuery(sql);
-        q.setParameter("xCriterio", "%"+criterio+"%");
+        q.setParameter("xCriterio", "%" + criterio + "%");
+        LOG.log(Level.INFO, "findAllFicha: {0}", sql);
+        List<Ficha> tr = q.getResultList();
+        return tr;
+    }
+
+    public List<Ficha> findAllFichaProceso(Integer anhoProceso, Integer idCapilla, Integer idEtapa) {
+        String sql = "SELECT a.idFicha FROM FormacionCristiana a WHERE a.idNivel.idNivel=:xEtapa AND a.idCapilla.idCapilla=:xCapilla AND a.anho=:xAnho ORDER BY a.idFicha.apellidos, a.idFicha.nombres";
+        Query q = em.createQuery(sql);
+        q.setParameter("xAnho", anhoProceso - 1);
+        q.setParameter("xCapilla", idCapilla);
+        q.setParameter("xEtapa", idEtapa - 1);
         LOG.log(Level.INFO, "findAllFicha: {0}", sql);
         List<Ficha> tr = q.getResultList();
         return tr;
