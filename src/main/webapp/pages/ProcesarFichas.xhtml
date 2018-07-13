@@ -50,7 +50,17 @@
                               paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                               >
                     <f:facet name="header">
-                        <h:outputText rendered="#{FichaController.listaFicha.size()>0}" styleClass="font2x fontBold" value="#{FichaController.listaFicha.size()} fichas del #{FichaController.anhoProceso-1} de #{FichaController.doNivelAnterior().toString()}"/>
+                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-2">
+                            <h:outputText rendered="#{FichaController.listaFicha.size()>0}" styleClass="font2x fontBold" value="#{FichaController.listaFicha.size()} fichas del #{FichaController.anhoProceso-1} de #{FichaController.doNivelAnterior().toString()}"/>
+                            <p:commandLink target="_blank" ajax="false"
+                                           rendered="#{FichaController.listaFicha.size()>0}"
+                                           style="padding: .3em 1em;"
+                                           styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c"
+                                           action="#{ReporteController.generarReporteFicha(FichaController.listaFicha)}">
+                                <i class="fa fa-download"></i> #{bundle.DescargarBoton}
+                            </p:commandLink>
+                        </p:panelGrid>
+
                     </f:facet>      
                     <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     <p:column sortBy="#{item.apellidos}">
@@ -104,7 +114,9 @@
                 </p:panelGrid>
                 <f:facet name="footer">
                     <p:panelGrid columns="1" styleClass="ui-panelgrid-blank">
-                        <p:commandButton disabled="#{FichaController.listaFicha.size()==0}" ajax="false" onclick="if(!confirm('#{bundle.ConfirmacionMensaje}')){return false;}" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{FichaController.doProcesarInscripcion()}" />
+                        <p:commandButton disabled="#{FichaController.listaFicha.size()==0}" ajax="false" onclick="if (!confirm('#{bundle.ConfirmacionMensaje}')) {
+                                    return false;
+                                }" value="#{bundle.ProcesarBoton}" icon="fa fa-chevron-circle-right" action="#{FichaController.doProcesarInscripcion()}" />
                     </p:panelGrid>
                 </f:facet>
             </p:panel>
