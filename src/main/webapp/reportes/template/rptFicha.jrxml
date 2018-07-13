@@ -163,6 +163,7 @@
 	<field name="diocesisBautismo" class="java.lang.String">
 		<fieldDescription><![CDATA[diocesisBautismo]]></fieldDescription>
 	</field>
+	<field name="idDetalleCapilla" class="catequesis.modelo.DetalleCapilla"/>
 	<group name="Group1" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{idFicha}]]></groupExpression>
 		<groupHeader>
@@ -402,7 +403,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="100">
+			<band height="101">
 				<staticText>
 					<reportElement x="0" y="0" width="536" height="20" uuid="9e09abdd-87fe-4ebc-891a-5e70c807612f"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -456,23 +457,23 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$F{idEstadoCivilMadrina}]]></textFieldExpression>
 				</textField>
-				<textField isBlankWhenNull="true">
-					<reportElement x="100" y="60" width="165" height="20" uuid="d99172de-60c5-4cab-bbac-c396ee5e1aa7">
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="100" y="60" width="60" height="20" uuid="d99172de-60c5-4cab-bbac-c396ee5e1aa7">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d37edcf-b16f-497c-b284-1dabd082f629"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" size="10"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{fechaRetiro}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{idDetalleCapilla}.getFechaInicioRetiro()]]></textFieldExpression>
 				</textField>
-				<textField isBlankWhenNull="true">
+				<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement x="420" y="60" width="116" height="20" uuid="182ee72a-de98-4326-b5e7-3544ae4a1451">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="72320513-d1e3-426a-bf82-7866abcc48f5"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" size="10"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{madrinaBautismo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{idDetalleCapilla}.getFechaSacramentoConfirmacion()]]></textFieldExpression>
 				</textField>
 				<staticText>
 					<reportElement x="0" y="60" width="100" height="20" uuid="061760a8-07c8-408c-a185-058283f725d3">
@@ -520,7 +521,7 @@
 					<text><![CDATA[MADRINA:]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="80" width="70" height="20" uuid="589c1726-ad10-45bd-97d8-ac627a440095">
+					<reportElement x="0" y="80" width="80" height="20" uuid="589c1726-ad10-45bd-97d8-ac627a440095">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="384bae95-d29a-426e-8b6a-7fefaa4be387"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
@@ -529,14 +530,28 @@
 					<text><![CDATA[CELEBRANTE:]]></text>
 				</staticText>
 				<textField isBlankWhenNull="true">
-					<reportElement x="70" y="80" width="466" height="20" uuid="dcec035c-b3c2-4897-b182-b360a78711cb">
+					<reportElement x="80" y="80" width="456" height="20" uuid="dcec035c-b3c2-4897-b182-b360a78711cb">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="384bae95-d29a-426e-8b6a-7fefaa4be387"/>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
 						<font fontName="DejaVu Sans" size="10"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{observacionesBautismo}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{idDetalleCapilla}.getCelebranteConfirmacion()]]></textFieldExpression>
 				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy" isBlankWhenNull="true">
+					<reportElement x="180" y="60" width="85" height="20" uuid="bc6e5041-6c62-452b-9952-6d017c7ea91e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d37edcf-b16f-497c-b284-1dabd082f629"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font fontName="DejaVu Sans" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{idDetalleCapilla}.getFechaFinRetiro()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="160" y="60" width="20" height="20" uuid="ea252ae4-005a-46f8-bd0f-5a3a83dcb9a3"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[al]]></text>
+				</staticText>
 			</band>
 		</groupFooter>
 	</group>
