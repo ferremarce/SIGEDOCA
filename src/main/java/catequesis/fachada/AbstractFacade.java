@@ -6,6 +6,7 @@
 package catequesis.fachada;
 
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
 public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
+    static final Logger LOG = Logger.getLogger(AbstractFacade.class.getName());
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;

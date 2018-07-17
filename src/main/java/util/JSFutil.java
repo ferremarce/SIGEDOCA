@@ -4,6 +4,7 @@
  */
 package util;
 
+import catequesis.modelo.Usuario;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -352,11 +353,11 @@ public class JSFutil implements Serializable {
         return formatoFecha.format(fechaActual);
     }
 
-//    public static Usuario getUsuarioConectado() {
-//        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-//        Usuario user = (Usuario) session.getAttribute("user");
-//        return user;
-//    }
+    public static Usuario getUsuarioConectado() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        Usuario user = (Usuario) session.getAttribute("user");
+        return user;
+    }
 
     public static String getClientIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");

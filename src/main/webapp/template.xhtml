@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -40,9 +41,15 @@
                     </p:submenu>
                     <p:submenu label="&nbsp;Configuración" icon="ui-icon-document">
                         <p:menuitem ajax="false" value="SubTipos" action="#{SubTipoController.doListaForm()}"/>
-                        <p:menuitem ajax="false" value="Parámetros" action="#{PropiedadController.editarParametroForm()}"/>
+                        <p:menuitem ajax="false" value="Parámetros" action="#{ParametrosController.doListaForm()}"/>
                         <p:menuitem ajax="false" value="Jerarquías" action="#{TipoTreeController.doTipoTreeForm()}"/>
                     </p:submenu>
+                    <f:facet name="options">
+                        <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
+                            <p:commandButton ajax="false" value="#{bundle.CambiarContrasenhaBoton}" icon="fa fa-lock" action="#{LoginManager.doCambiarContrasenhaForm()}" />
+                            <p:commandButton ajax="false" value="#{bundle.SalirBoton}" icon="ui-icon-extlink" action="#{LoginManager.doLogout()}" />
+                        </p:panelGrid>
+                    </f:facet>
                 </p:menubar>
             </h:form>
             <ui:insert name="title">

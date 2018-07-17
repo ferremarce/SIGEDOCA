@@ -16,4 +16,7 @@
             <default-locale>es_PY</default-locale>
         </locale-config>
     </application>
+    <lifecycle>
+        <phase-listener>catequesis.login.AuthorizationListener</phase-listener>
+    </lifecycle>
 </faces-config>

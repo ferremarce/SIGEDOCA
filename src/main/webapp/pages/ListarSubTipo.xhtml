@@ -12,9 +12,9 @@
     <ui:define name="content">
         <h:form>
             <p:growl life="5000" globalOnly="true" id="messages"/> 
-            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6,ui-grid-col-6">
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank">
                 <p:commandButton value="#{bundle.NuevoBoton}" icon="fa fa-plus" ajax="false" action="#{SubTipoController.doCrearForm()}"/>
-                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-search" ajax="false" action="#{SubTipoController.doRefrescar()}"/>
+                <p:commandButton value="#{bundle.ListarBoton}" icon="fa fa-th-list" ajax="false" action="#{SubTipoController.doRefrescar()}"/>
             </p:panelGrid>
             <p:dataTable rowIndexVar="index" id="dataTable" widgetVar="dtSubTipo" var="item" value="#{SubTipoController.listaSubTipo}" 
                          reflow="true"
