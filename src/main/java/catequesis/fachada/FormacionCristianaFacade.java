@@ -7,7 +7,6 @@ package catequesis.fachada;
 
 import catequesis.modelo.FormacionCristiana;
 import catequesis.modelo.NivelCatequesis;
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
